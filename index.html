@@ -3,612 +3,514 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🎨 坨坨的的CP画廊</title>
+<title>🎨 坨坨的小小画廊</title>
 <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;700&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
 <style>
   :root {
     --pink: #f9a8c9;
     --pink-deep: #e97ab8;
     --lavender: #c9b8f0;
-    --mint: #b8eae0;
     --cream: #fff8f2;
     --text: #3d2c35;
     --soft: #f5e6ef;
     --accent: #ff7eb3;
-    --gold: #f0c060;
     --shadow: rgba(233,122,184,0.18);
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    background-color: var(--cream);
-    color: var(--text);
-    font-family: 'Noto Serif SC', serif;
-    overflow-x: hidden;
-    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='5' fill='%23f9a8c9' stroke='%23e97ab8' stroke-width='2'/%3E%3C/svg%3E") 12 12, auto;
-  }
-
-  /* ===== FLOATING DECORATIONS ===== */
-  .deco-bg {
-    position: fixed; top: 0; left: 0;
-    width: 100%; height: 100%;
-    pointer-events: none; z-index: 0;
-    overflow: hidden;
-  }
-  .bubble {
-    position: absolute;
-    border-radius: 50%;
-    opacity: 0.13;
-    animation: floatUp linear infinite;
-  }
-  @keyframes floatUp {
-    0%   { transform: translateY(100vh) scale(0.8); opacity: 0; }
-    10%  { opacity: 0.13; }
-    90%  { opacity: 0.13; }
-    100% { transform: translateY(-120px) scale(1.1); opacity: 0; }
-  }
-
-  /* ===== HEADER ===== */
-  header {
-    position: relative; z-index: 10;
-    text-align: center;
-    padding: 60px 20px 40px;
-    background: linear-gradient(160deg, #fff0f8 0%, #f5e6fb 50%, #e8f5fd 100%);
-    border-bottom: 3px dashed var(--pink);
-    overflow: hidden;
-  }
-  header::before {
-    content: '';
-    position: absolute; inset: 0;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Ccircle cx='10' cy='10' r='2' fill='%23f9a8c9' opacity='0.3'/%3E%3Ccircle cx='35' cy='40' r='1.5' fill='%23c9b8f0' opacity='0.3'/%3E%3Ccircle cx='55' cy='15' r='1' fill='%23b8eae0' opacity='0.3'/%3E%3C/svg%3E");
-    animation: bgDrift 20s linear infinite;
-  }
+  body { background-color: var(--cream); color: var(--text); font-family: 'Noto Serif SC', serif; overflow-x: hidden; cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='5' fill='%23f9a8c9' stroke='%23e97ab8' stroke-width='2'/%3E%3C/svg%3E") 12 12, auto; }
+  .deco-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
+  .bubble { position: absolute; border-radius: 50%; opacity: 0.13; animation: floatUp linear infinite; }
+  @keyframes floatUp { 0% { transform: translateY(100vh) scale(0.8); opacity: 0; } 10% { opacity: 0.13; } 90% { opacity: 0.13; } 100% { transform: translateY(-120px) scale(1.1); opacity: 0; } }
+  header { position: relative; z-index: 10; text-align: center; padding: 60px 20px 40px; background: linear-gradient(160deg, #fff0f8 0%, #f5e6fb 50%, #e8f5fd 100%); border-bottom: 3px dashed var(--pink); overflow: hidden; }
+  header::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Ccircle cx='10' cy='10' r='2' fill='%23f9a8c9' opacity='0.3'/%3E%3Ccircle cx='35' cy='40' r='1.5' fill='%23c9b8f0' opacity='0.3'/%3E%3Ccircle cx='55' cy='15' r='1' fill='%23b8eae0' opacity='0.3'/%3E%3C/svg%3E"); animation: bgDrift 20s linear infinite; }
   @keyframes bgDrift { to { background-position: 60px 60px; } }
-
-  .avatar-wrap {
-    position: relative; display: inline-block;
-    margin-bottom: 16px;
-  }
-  .avatar {
-    width: 100px; height: 100px;
-    border-radius: 50%;
-    border: 4px solid white;
-    box-shadow: 0 4px 24px var(--shadow);
-    background: linear-gradient(135deg, var(--pink), var(--lavender));
-    display: flex; align-items: center; justify-content: center;
-    font-size: 48px;
-    animation: wobble 3s ease-in-out infinite;
-  }
-  @keyframes wobble {
-    0%,100% { transform: rotate(-3deg) scale(1); }
-    50%      { transform: rotate(3deg) scale(1.04); }
-  }
-  .avatar-ring {
-    position: absolute; inset: -8px;
-    border-radius: 50%;
-    border: 3px dashed var(--pink-deep);
-    animation: spin 8s linear infinite;
-    opacity: 0.6;
-  }
+  .avatar-wrap { position: relative; display: inline-block; margin-bottom: 16px; }
+  .avatar { width: 100px; height: 100px; border-radius: 50%; border: 4px solid white; box-shadow: 0 4px 24px var(--shadow); background: linear-gradient(135deg, var(--pink), var(--lavender)); display: flex; align-items: center; justify-content: center; font-size: 48px; animation: wobble 3s ease-in-out infinite; }
+  @keyframes wobble { 0%,100% { transform: rotate(-3deg) scale(1); } 50% { transform: rotate(3deg) scale(1.04); } }
+  .avatar-ring { position: absolute; inset: -8px; border-radius: 50%; border: 3px dashed var(--pink-deep); animation: spin 8s linear infinite; opacity: 0.6; }
   @keyframes spin { to { transform: rotate(360deg); } }
+  h1 { font-family: 'Ma Shan Zheng', cursive; font-size: clamp(2rem, 6vw, 3.2rem); color: var(--pink-deep); text-shadow: 2px 2px 0 white, 3px 3px 0 var(--lavender); letter-spacing: 4px; margin-bottom: 8px; }
+  .tagline { font-size: 0.95rem; color: #a07090; letter-spacing: 2px; margin-bottom: 20px; }
+  .header-tags { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 10px; }
+  .htag { background: white; border: 2px solid var(--pink); color: var(--pink-deep); padding: 4px 14px; border-radius: 99px; font-size: 0.82rem; }
+  nav { position: sticky; top: 0; z-index: 100; background: rgba(255,248,252,0.92); backdrop-filter: blur(12px); border-bottom: 2px solid var(--pink); display: flex; justify-content: center; gap: 4px; padding: 10px 20px; flex-wrap: wrap; }
+  .nav-btn { padding: 7px 18px; border-radius: 99px; border: 2px solid transparent; background: none; cursor: pointer; font-family: 'Noto Serif SC', serif; font-size: 0.88rem; color: var(--text); transition: all 0.2s; text-decoration: none; display: inline-block; }
+  .nav-btn:hover, .nav-btn.active { background: var(--pink-deep); color: white; border-color: var(--pink-deep); transform: translateY(-1px); }
+  main { position: relative; z-index: 5; max-width: 1100px; margin: 40px auto; padding: 0 20px; }
+  .section { margin-bottom: 60px; scroll-margin-top: 70px; }
+  .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
+  .section-title { font-family: 'ZCOOL XiaoWei', serif; font-size: 1.6rem; color: var(--pink-deep); white-space: nowrap; }
+  .section-title-line { flex: 1; height: 2px; background: linear-gradient(to right, var(--pink), transparent); border-radius: 2px; min-width: 20px; }
 
-  h1 {
-    font-family: 'Ma Shan Zheng', cursive;
-    font-size: clamp(2rem, 6vw, 3.2rem);
-    color: var(--pink-deep);
-    text-shadow: 2px 2px 0 white, 3px 3px 0 var(--lavender);
-    letter-spacing: 4px;
-    margin-bottom: 8px;
+  /* ===== 标签搜索 ===== */
+  .tag-search-bar {
+    margin-bottom: 18px;
+    display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
   }
-  .tagline {
-    font-size: 0.95rem;
-    color: #a07090;
-    letter-spacing: 2px;
-    margin-bottom: 20px;
+  .tag-search-input {
+    padding: 7px 16px; border: 2px solid var(--pink); border-radius: 99px;
+    font-family: 'Noto Serif SC', serif; font-size: 0.85rem; color: var(--text);
+    background: white; outline: none; transition: border-color 0.2s; width: 200px;
   }
+  .tag-search-input:focus { border-color: var(--pink-deep); }
+  .tag-search-clear { padding: 6px 14px; border-radius: 99px; border: 2px solid var(--soft); background: none; cursor: pointer; font-family: 'Noto Serif SC', serif; font-size: 0.82rem; color: #c0a0b0; transition: all 0.2s; display: none; }
+  .tag-search-clear.visible { display: inline-block; }
+  .tag-search-clear:hover { border-color: var(--pink-deep); color: var(--pink-deep); }
+  .tag-cloud { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag-filter-btn { padding: 3px 12px; border-radius: 99px; border: 1.5px solid var(--pink); background: none; cursor: pointer; font-family: 'Noto Serif SC', serif; font-size: 0.75rem; color: var(--pink-deep); transition: all 0.2s; }
+  .tag-filter-btn:hover, .tag-filter-btn.active { background: var(--pink-deep); color: white; border-color: var(--pink-deep); }
+  .gallery-empty { display: none; text-align: center; padding: 40px; color: #c0a0b0; font-size: 0.9rem; }
+  .gallery-empty.show { display: block; }
 
-  .header-tags {
-    display: flex; flex-wrap: wrap; gap: 8px;
-    justify-content: center; margin-top: 10px;
-  }
-  .htag {
-    background: white;
-    border: 2px solid var(--pink);
-    color: var(--pink-deep);
-    padding: 4px 14px; border-radius: 99px;
-    font-size: 0.82rem; cursor: pointer;
-    transition: all 0.2s;
-  }
-  .htag:hover {
-    background: var(--pink); color: white;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px var(--shadow);
-  }
+  /* ===== 排序 ===== */
+  .sort-controls { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+  .sort-label { font-size: 0.78rem; color: #c0a0b0; white-space: nowrap; }
+  .sort-btn { padding: 4px 12px; border-radius: 99px; border: 1.5px solid var(--pink); background: none; cursor: pointer; font-family: 'Noto Serif SC', serif; font-size: 0.75rem; color: var(--pink-deep); transition: all 0.2s; white-space: nowrap; }
+  .sort-btn:hover { background: var(--pink); color: white; }
+  .sort-btn.active { background: var(--pink-deep); color: white; border-color: var(--pink-deep); }
 
-  /* ===== NAV ===== */
-  nav {
-    position: sticky; top: 0; z-index: 100;
-    background: rgba(255,248,252,0.92);
-    backdrop-filter: blur(12px);
-    border-bottom: 2px solid var(--pink);
-    display: flex; justify-content: center;
-    gap: 4px; padding: 10px 20px;
-    flex-wrap: wrap;
-  }
-  .nav-btn {
-    padding: 7px 18px; border-radius: 99px;
-    border: 2px solid transparent;
-    background: none; cursor: pointer;
-    font-family: 'Noto Serif SC', serif;
-    font-size: 0.88rem; color: var(--text);
-    transition: all 0.2s;
-  }
-  .nav-btn:hover, .nav-btn.active {
-    background: var(--pink-deep); color: white;
-    border-color: var(--pink-deep);
-    transform: translateY(-1px);
-  }
-
-  /* ===== MAIN LAYOUT ===== */
-  main {
-    position: relative; z-index: 5;
-    max-width: 1100px;
-    margin: 40px auto;
-    padding: 0 20px;
-  }
-
-  .section { margin-bottom: 60px; }
-
-  .section-title {
-    font-family: 'ZCOOL XiaoWei', serif;
-    font-size: 1.6rem;
-    color: var(--pink-deep);
-    margin-bottom: 24px;
-    display: flex; align-items: center; gap: 10px;
-  }
-  .section-title::after {
-    content: '';
-    flex: 1; height: 2px;
-    background: linear-gradient(to right, var(--pink), transparent);
-    border-radius: 2px;
-  }
-
-  /* ===== GALLERY GRID ===== */
-  .gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 20px;
-  }
-
-  .card {
-    background: white;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 4px 20px var(--shadow);
-    transition: transform 0.3s, box-shadow 0.3s;
-    border: 2px solid var(--soft);
-    cursor: pointer;
-  }
-  .card:hover {
-    transform: translateY(-6px) rotate(-0.5deg);
-    box-shadow: 0 12px 36px var(--shadow);
-  }
-
-  .card-img {
-    width: 100%; aspect-ratio: 1;
-    object-fit: cover;
-    background: linear-gradient(135deg, var(--soft), var(--lavender));
-    display: flex; align-items: center; justify-content: center;
-    font-size: 56px;
-    position: relative; overflow: hidden;
-  }
-  .card-img::after {
-    content: '';
-    position: absolute; inset: 0;
-    background: linear-gradient(to bottom, transparent 60%, rgba(249,168,201,0.3));
-  }
-  .card-img img {
-    width: 100%; height: 100%; object-fit: cover;
-  }
-
-  .card-body { padding: 14px 16px; }
-  .card-title {
-    font-family: 'ZCOOL XiaoWei', serif;
-    font-size: 1rem; color: var(--text);
-    margin-bottom: 6px;
-  }
+  /* ===== GALLERY ===== */
+  .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
+  .card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 20px var(--shadow); transition: transform 0.3s, box-shadow 0.3s; border: 2px solid var(--soft); }
+  .card:hover { transform: translateY(-6px) rotate(-0.5deg); box-shadow: 0 12px 36px var(--shadow); }
+  .card.hidden { display: none; }
+  .card-img { width: 100%; aspect-ratio: 1; background: linear-gradient(135deg, var(--soft), var(--lavender)); display: flex; align-items: center; justify-content: center; font-size: 56px; position: relative; overflow: hidden; cursor: pointer; }
+  .card-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 60%, rgba(249,168,201,0.3)); pointer-events: none; }
+  .card-img img { width: 100%; height: 100%; object-fit: cover; }
+  .card-body { padding: 14px 16px 8px; }
+  .card-title { font-family: 'ZCOOL XiaoWei', serif; font-size: 1rem; color: var(--text); margin-bottom: 6px; }
   .card-desc { font-size: 0.82rem; color: #a07090; line-height: 1.6; }
-  .card-tags { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 5px; }
-  .tag {
-    background: var(--soft); color: var(--pink-deep);
-    padding: 2px 10px; border-radius: 99px;
-    font-size: 0.75rem;
-  }
+  .card-tags { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 5px; }
+  .tag { background: var(--soft); color: var(--pink-deep); padding: 2px 10px; border-radius: 99px; font-size: 0.75rem; cursor: pointer; transition: all 0.15s; }
+  .tag:hover { background: var(--pink-deep); color: white; }
+
+  /* ===== 折叠面板 ===== */
+  .card-note-toggle { width: 100%; background: none; border: none; border-top: 1.5px dashed var(--pink); padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; font-family: 'Noto Serif SC', serif; font-size: 0.8rem; color: var(--pink-deep); transition: background 0.2s; }
+  .card-note-toggle:hover { background: var(--soft); }
+  .card-note-toggle .arrow { transition: transform 0.3s; font-size: 0.7rem; }
+  .card-note-toggle.open .arrow { transform: rotate(180deg); }
+  .card-note-panel { display: none; padding: 12px 16px 16px; background: var(--soft); }
+  .card-note-panel.open { display: block; }
+  .card-dates { display: flex; flex-direction: column; gap: 3px; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid rgba(233,122,184,0.2); }
+  .card-date-item { font-size: 0.75rem; color: #c0a0b0; display: flex; align-items: flex-start; gap: 5px; flex-wrap: wrap; }
+  .card-date-item span.di { color: #b8a0b0; }
+  .card-date-item .date-main { display: flex; align-items: center; gap: 5px; flex-wrap: wrap; }
+  .card-date-item .event-name { display: block; width: 100%; font-size: 0.72rem; color: #c8a8c0; padding-left: 22px; margin-top: 2px; font-style: italic; letter-spacing: 0.5px; }
+  .card-note-text { font-size: 0.85rem; color: #6b5060; line-height: 1.9; margin-bottom: 10px; white-space: pre-wrap; }
+  .card-note-links { display: flex; flex-wrap: wrap; gap: 8px; }
+  .note-link { display: inline-flex; align-items: center; gap: 5px; background: white; border: 1.5px solid var(--pink); color: var(--pink-deep); padding: 4px 12px; border-radius: 99px; font-size: 0.78rem; text-decoration: none; transition: all 0.2s; }
+  .note-link:hover { background: var(--pink-deep); color: white; border-color: var(--pink-deep); }
 
   /* ===== TEXT POSTS ===== */
   .text-posts { display: flex; flex-direction: column; gap: 20px; }
-  .post-card {
-    background: white; border-radius: 20px;
-    padding: 24px 28px;
-    border-left: 5px solid var(--pink);
-    box-shadow: 0 4px 16px var(--shadow);
-    transition: transform 0.2s;
-  }
+  .post-card { background: white; border-radius: 20px; padding: 24px 28px; border-left: 5px solid var(--pink); box-shadow: 0 4px 16px var(--shadow); transition: transform 0.2s; }
   .post-card:hover { transform: translateX(4px); }
-  .post-date {
-    font-size: 0.78rem; color: #c0a0b0;
-    margin-bottom: 8px; letter-spacing: 1px;
-  }
-  .post-title {
-    font-family: 'ZCOOL XiaoWei', serif;
-    font-size: 1.1rem; color: var(--text);
-    margin-bottom: 10px;
-  }
+  .post-date { font-size: 0.78rem; color: #c0a0b0; margin-bottom: 8px; letter-spacing: 1px; }
+  .post-title { font-family: 'ZCOOL XiaoWei', serif; font-size: 1.1rem; color: var(--text); margin-bottom: 10px; }
   .post-content { font-size: 0.9rem; color: #6b5060; line-height: 1.9; }
 
-  /* ===== VIDEO SECTION ===== */
-  .video-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 20px;
-  }
-  .video-card {
-    background: white; border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 4px 20px var(--shadow);
-    border: 2px solid var(--soft);
-    transition: transform 0.3s;
-  }
+  /* ===== VIDEO ===== */
+  .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+  .video-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 20px var(--shadow); border: 2px solid var(--soft); transition: transform 0.3s; }
   .video-card:hover { transform: translateY(-4px); }
-  .video-wrap {
-    position: relative; width: 100%;
-    padding-top: 56.25%; /* 16:9 */
-    background: linear-gradient(135deg, #2d1b30, #1a0d2e);
-    overflow: hidden;
-  }
-  .video-wrap iframe, .video-wrap video {
-    position: absolute; top: 0; left: 0;
-    width: 100%; height: 100%; border: none;
-  }
-  .video-placeholder {
-    position: absolute; inset: 0;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    color: white; gap: 10px; cursor: pointer;
-  }
-  .play-btn {
-    width: 56px; height: 56px;
-    background: var(--pink-deep);
-    border-radius: 50%; border: none;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 22px; cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-    color: white;
-  }
-  .play-btn:hover {
-    transform: scale(1.12);
-    box-shadow: 0 0 24px rgba(233,122,184,0.6);
-  }
+  .video-wrap { position: relative; width: 100%; padding-top: 56.25%; background: linear-gradient(135deg, #2d1b30, #1a0d2e); overflow: hidden; }
+  .video-wrap iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
   .video-card .card-body { padding: 14px 16px; }
 
   /* ===== LINKS ===== */
-  .links-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 16px;
-  }
-  .link-card {
-    background: white; border-radius: 16px;
-    padding: 20px; text-decoration: none;
-    display: flex; flex-direction: column;
-    align-items: center; gap: 10px;
-    text-align: center;
-    box-shadow: 0 4px 16px var(--shadow);
-    border: 2px solid var(--soft);
-    transition: all 0.2s; color: var(--text);
-  }
-  .link-card:hover {
-    background: var(--pink-deep); color: white;
-    transform: translateY(-4px) scale(1.03);
-    border-color: var(--pink-deep);
-  }
+  .links-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
+  .link-card { background: white; border-radius: 16px; padding: 20px; text-decoration: none; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; box-shadow: 0 4px 16px var(--shadow); border: 2px solid var(--soft); transition: all 0.2s; color: var(--text); cursor: pointer; }
+  .link-card:hover { background: var(--pink-deep); color: white; transform: translateY(-4px) scale(1.03); border-color: var(--pink-deep); }
   .link-icon { font-size: 32px; }
   .link-name { font-size: 0.9rem; font-weight: 700; }
   .link-desc { font-size: 0.78rem; opacity: 0.7; }
 
-  /* ===== ADD WORK PANEL ===== */
-  .fab {
-    position: fixed; bottom: 32px; right: 32px;
-    width: 58px; height: 58px;
-    border-radius: 50%; border: none;
-    background: linear-gradient(135deg, var(--pink-deep), var(--lavender));
-    color: white; font-size: 26px;
-    box-shadow: 0 6px 24px var(--shadow);
-    cursor: pointer; z-index: 200;
-    display: flex; align-items: center; justify-content: center;
-    transition: transform 0.3s, box-shadow 0.3s;
-  }
-  .fab:hover {
-    transform: scale(1.12) rotate(45deg);
-    box-shadow: 0 10px 32px rgba(233,122,184,0.5);
-  }
+  /* ===== 约稿页面 ===== */
+  .commission-page { display: none; }
+  .commission-page.active { display: block; }
+  .commission-back { display: inline-flex; align-items: center; gap: 6px; background: none; border: 2px solid var(--pink); color: var(--pink-deep); padding: 8px 18px; border-radius: 99px; cursor: pointer; font-family: 'Noto Serif SC', serif; font-size: 0.88rem; margin-bottom: 24px; transition: all 0.2s; }
+  .commission-back:hover { background: var(--pink-deep); color: white; }
+  .commission-hero { text-align: center; padding: 32px 20px; background: linear-gradient(135deg, #fff0f8, #f5e6fb); border-radius: 24px; margin-bottom: 28px; border: 2px solid var(--pink); }
+  .commission-hero h2 { font-family: 'Ma Shan Zheng', cursive; font-size: 2rem; color: var(--pink-deep); margin-bottom: 8px; }
+  .commission-hero p { color: #a07090; font-size: 0.9rem; line-height: 1.8; }
+  .commission-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; margin-bottom: 28px; }
+  .commission-card { background: white; border-radius: 20px; padding: 24px; box-shadow: 0 4px 20px var(--shadow); border: 2px solid var(--soft); }
+  .commission-card h3 { font-family: 'ZCOOL XiaoWei', serif; font-size: 1.15rem; color: var(--pink-deep); margin-bottom: 14px; padding-bottom: 10px; border-bottom: 2px dashed var(--pink); }
+  .price-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--soft); }
+  .price-row:last-child { border-bottom: none; }
+  .price-name { font-size: 0.88rem; color: var(--text); }
+  .price-val { font-family: 'ZCOOL XiaoWei', serif; font-size: 0.95rem; color: var(--pink-deep); white-space: nowrap; }
+  .commission-note { font-size: 0.8rem; color: #a07090; margin-top: 12px; line-height: 1.8; padding: 10px 14px; background: var(--soft); border-radius: 10px; }
+  .commission-note strong { color: var(--pink-deep); }
 
-  .modal-overlay {
-    display: none; position: fixed; inset: 0;
-    background: rgba(60,20,50,0.4);
-    backdrop-filter: blur(6px);
-    z-index: 300; align-items: center; justify-content: center;
-  }
+  /* 例图展示区 */
+  .sample-section { margin-bottom: 28px; }
+  .sample-section h3 { font-family: 'ZCOOL XiaoWei', serif; font-size: 1.15rem; color: var(--pink-deep); margin-bottom: 14px; }
+  .sample-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+  .sample-placeholder { aspect-ratio: 1; background: linear-gradient(135deg, var(--soft), var(--lavender)); border-radius: 14px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; border: 2px dashed var(--pink); color: #c0a0b0; font-size: 0.78rem; cursor: pointer; transition: all 0.2s; overflow: hidden; }
+  .sample-placeholder:hover { border-color: var(--pink-deep); }
+  .sample-placeholder img { width: 100%; height: 100%; object-fit: cover; }
+  .sample-placeholder span { font-size: 28px; }
+
+  /* 约稿流程 */
+  .flow-section { margin-bottom: 28px; }
+  .flow-section h3 { font-family: 'ZCOOL XiaoWei', serif; font-size: 1.15rem; color: var(--pink-deep); margin-bottom: 14px; }
+  .flow-steps { display: flex; flex-direction: column; gap: 0; }
+  .flow-step { display: flex; gap: 14px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid var(--soft); }
+  .flow-step:last-child { border-bottom: none; }
+  .flow-num { width: 28px; height: 28px; border-radius: 50%; background: var(--pink-deep); color: white; font-size: 0.78rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+  .flow-text { font-size: 0.88rem; color: #6b5060; line-height: 1.8; }
+  .flow-text strong { color: var(--pink-deep); }
+
+  /* 工期 */
+  .schedule-section { background: white; border-radius: 20px; padding: 24px; box-shadow: 0 4px 20px var(--shadow); border: 2px solid var(--soft); margin-bottom: 28px; }
+  .schedule-section h3 { font-family: 'ZCOOL XiaoWei', serif; font-size: 1.15rem; color: var(--pink-deep); margin-bottom: 14px; padding-bottom: 10px; border-bottom: 2px dashed var(--pink); }
+  .schedule-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--soft); font-size: 0.88rem; }
+  .schedule-row:last-child { border-bottom: none; }
+  .schedule-label { color: var(--text); }
+  .schedule-days { color: var(--pink-deep); font-family: 'ZCOOL XiaoWei', serif; }
+
+  /* 联系按钮 */
+  .contact-btn-area { text-align: center; padding: 24px 0; }
+  .contact-btn { display: inline-flex; align-items: center; gap: 10px; background: linear-gradient(135deg, var(--pink-deep), var(--lavender)); color: white; border: none; padding: 14px 32px; border-radius: 99px; font-family: 'ZCOOL XiaoWei', serif; font-size: 1.05rem; cursor: pointer; box-shadow: 0 6px 20px var(--shadow); transition: all 0.2s; }
+  .contact-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(233,122,184,0.4); }
+
+  /* 二维码弹窗 */
+  .qr-modal { background: white; border-radius: 24px; padding: 32px; width: min(320px, 90vw); text-align: center; box-shadow: 0 20px 60px rgba(233,122,184,0.3); animation: popIn 0.3s ease; border: 3px solid var(--pink); }
+  .qr-modal h3 { font-family: 'ZCOOL XiaoWei', serif; font-size: 1.2rem; color: var(--pink-deep); margin-bottom: 16px; }
+  .qr-box { width: 200px; height: 200px; margin: 0 auto 16px; border-radius: 14px; overflow: hidden; border: 3px solid var(--pink); background: linear-gradient(135deg, var(--soft), var(--lavender)); display: flex; align-items: center; justify-content: center; }
+  .qr-box img { width: 100%; height: 100%; object-fit: cover; }
+  .qr-hint { font-size: 0.82rem; color: #a07090; margin-bottom: 16px; }
+
+  /* ===== FAB ===== */
+  .fab { position: fixed; bottom: 32px; right: 32px; width: 58px; height: 58px; border-radius: 50%; border: none; background: linear-gradient(135deg, var(--pink-deep), var(--lavender)); color: white; font-size: 26px; box-shadow: 0 6px 24px var(--shadow); cursor: pointer; z-index: 200; display: flex; align-items: center; justify-content: center; transition: transform 0.3s, box-shadow 0.3s; }
+  .fab:hover { transform: scale(1.12) rotate(45deg); box-shadow: 0 10px 32px rgba(233,122,184,0.5); }
+
+  /* ===== MODAL ===== */
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(60,20,50,0.4); backdrop-filter: blur(6px); z-index: 300; align-items: center; justify-content: center; }
   .modal-overlay.open { display: flex; }
-  .modal {
-    background: white; border-radius: 24px;
-    padding: 32px; width: min(480px, 92vw);
-    max-height: 90vh; overflow-y: auto;
-    box-shadow: 0 20px 60px rgba(233,122,184,0.3);
-    animation: popIn 0.3s ease;
-    border: 3px solid var(--pink);
-  }
-  @keyframes popIn {
-    from { transform: scale(0.85); opacity: 0; }
-    to   { transform: scale(1); opacity: 1; }
-  }
-  .modal h3 {
-    font-family: 'ZCOOL XiaoWei', serif;
-    font-size: 1.4rem; color: var(--pink-deep);
-    margin-bottom: 20px; text-align: center;
-  }
-  .modal-type-tabs {
-    display: flex; gap: 8px; margin-bottom: 20px;
-    flex-wrap: wrap;
-  }
-  .mtype {
-    padding: 6px 16px; border-radius: 99px;
-    border: 2px solid var(--pink);
-    background: none; cursor: pointer;
-    font-family: 'Noto Serif SC', serif;
-    font-size: 0.85rem; color: var(--pink-deep);
-    transition: all 0.2s;
-  }
-  .mtype.active, .mtype:hover {
-    background: var(--pink-deep); color: white;
-    border-color: var(--pink-deep);
-  }
-
+  .modal { background: white; border-radius: 24px; padding: 32px; width: min(500px, 92vw); max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(233,122,184,0.3); animation: popIn 0.3s ease; border: 3px solid var(--pink); }
+  @keyframes popIn { from { transform: scale(0.85); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  .modal h3 { font-family: 'ZCOOL XiaoWei', serif; font-size: 1.4rem; color: var(--pink-deep); margin-bottom: 20px; text-align: center; }
+  .modal-type-tabs { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+  .mtype { padding: 6px 16px; border-radius: 99px; border: 2px solid var(--pink); background: none; cursor: pointer; font-family: 'Noto Serif SC', serif; font-size: 0.85rem; color: var(--pink-deep); transition: all 0.2s; }
+  .mtype.active, .mtype:hover { background: var(--pink-deep); color: white; border-color: var(--pink-deep); }
   .form-group { margin-bottom: 16px; }
-  .form-group label {
-    display: block; font-size: 0.85rem;
-    color: #a07090; margin-bottom: 6px;
-  }
-  .form-group input,
-  .form-group textarea,
-  .form-group select {
-    width: 100%; padding: 10px 14px;
-    border: 2px solid var(--soft);
-    border-radius: 12px;
-    font-family: 'Noto Serif SC', serif;
-    font-size: 0.9rem; color: var(--text);
-    background: var(--cream);
-    outline: none; transition: border-color 0.2s;
-  }
-  .form-group input:focus,
-  .form-group textarea:focus {
-    border-color: var(--pink);
-  }
+  .form-group label { display: block; font-size: 0.85rem; color: #a07090; margin-bottom: 6px; }
+  .form-group input, .form-group textarea { width: 100%; padding: 10px 14px; border: 2px solid var(--soft); border-radius: 12px; font-family: 'Noto Serif SC', serif; font-size: 0.9rem; color: var(--text); background: var(--cream); outline: none; transition: border-color 0.2s; }
+  .form-group input:focus, .form-group textarea:focus { border-color: var(--pink); }
   .form-group textarea { min-height: 90px; resize: vertical; }
-
-  .btn-row {
-    display: flex; gap: 10px; justify-content: flex-end;
-    margin-top: 20px;
-  }
-  .btn {
-    padding: 10px 24px; border-radius: 99px;
-    border: 2px solid; cursor: pointer;
-    font-family: 'Noto Serif SC', serif;
-    font-size: 0.9rem; transition: all 0.2s;
-  }
-  .btn-ghost {
-    border-color: var(--soft); background: none;
-    color: #a07090;
-  }
+  .form-hint { font-size: 0.75rem; color: #c0a0b0; margin-top: 5px; }
+  .btn-row { display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px; }
+  .btn { padding: 10px 24px; border-radius: 99px; border: 2px solid; cursor: pointer; font-family: 'Noto Serif SC', serif; font-size: 0.9rem; transition: all 0.2s; }
+  .btn-ghost { border-color: var(--soft); background: none; color: #a07090; }
   .btn-ghost:hover { border-color: var(--pink-deep); color: var(--pink-deep); }
-  .btn-primary {
-    border-color: var(--pink-deep);
-    background: var(--pink-deep); color: white;
-  }
-  .btn-primary:hover {
-    background: var(--accent);
-    border-color: var(--accent);
-    transform: translateY(-1px);
-  }
+  .btn-primary { border-color: var(--pink-deep); background: var(--pink-deep); color: white; }
+  .btn-primary:hover { background: var(--accent); border-color: var(--accent); transform: translateY(-1px); }
 
   /* ===== LIGHTBOX ===== */
-  .lightbox {
-    display: none; position: fixed; inset: 0;
-    background: rgba(30,10,25,0.88);
-    z-index: 500; align-items: center;
-    justify-content: center; padding: 20px;
-  }
+  .lightbox { display: none; position: fixed; inset: 0; background: rgba(30,10,25,0.88); z-index: 500; align-items: center; justify-content: center; padding: 20px; }
   .lightbox.open { display: flex; }
-  .lightbox img {
-    max-width: 90vw; max-height: 86vh;
-    border-radius: 16px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-  }
-  .lightbox-close {
-    position: absolute; top: 20px; right: 24px;
-    font-size: 28px; color: white;
-    cursor: pointer; background: none; border: none;
-    opacity: 0.7; transition: opacity 0.2s;
-  }
+  .lightbox img { max-width: 90vw; max-height: 86vh; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+  .lightbox-close { position: absolute; top: 20px; right: 24px; font-size: 28px; color: white; cursor: pointer; background: none; border: none; opacity: 0.7; transition: opacity 0.2s; }
   .lightbox-close:hover { opacity: 1; }
 
-  /* ===== EMPTY STATE ===== */
-  .empty {
-    text-align: center; padding: 40px;
-    color: #c0a0b0; font-size: 0.9rem;
-  }
-  .empty .e-icon { font-size: 40px; margin-bottom: 12px; }
-
-  /* ===== SCROLLBAR ===== */
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-track { background: var(--cream); }
-  ::-webkit-scrollbar-thumb {
-    background: var(--pink); border-radius: 3px;
-  }
-
-  /* ===== SPARKLES ===== */
-  .sparkle {
-    position: fixed; pointer-events: none;
-    font-size: 18px; z-index: 9999;
-    animation: sparkFly 0.8s ease-out forwards;
-  }
-  @keyframes sparkFly {
-    0%   { transform: translateY(0) scale(1); opacity: 1; }
-    100% { transform: translateY(-60px) scale(0); opacity: 0; }
-  }
-
-  /* ===== FOOTER ===== */
-  footer {
-    text-align: center; padding: 32px 20px;
-    color: #c0a0b0; font-size: 0.82rem;
-    border-top: 2px dashed var(--pink);
-    background: var(--soft);
-    position: relative; z-index: 5;
-  }
+  ::-webkit-scrollbar-thumb { background: var(--pink); border-radius: 3px; }
+  .sparkle { position: fixed; pointer-events: none; font-size: 18px; z-index: 9999; animation: sparkFly 0.8s ease-out forwards; }
+  @keyframes sparkFly { 0% { transform: translateY(0) scale(1); opacity: 1; } 100% { transform: translateY(-60px) scale(0); opacity: 0; } }
+  footer { text-align: center; padding: 32px 20px; color: #c0a0b0; font-size: 0.82rem; border-top: 2px dashed var(--pink); background: var(--soft); position: relative; z-index: 5; }
   footer span { color: var(--pink-deep); }
+  /* 密码弹窗 */
+  .pwd-modal { background: white; border-radius: 24px; padding: 32px; width: min(360px, 90vw); box-shadow: 0 20px 60px rgba(233,122,184,0.3); animation: popIn 0.3s ease; border: 3px solid var(--pink); text-align: center; }
+  .pwd-modal h3 { font-family: 'ZCOOL XiaoWei', serif; font-size: 1.3rem; color: var(--pink-deep); margin-bottom: 16px; }
+  .pwd-modal input { width: 100%; padding: 10px 14px; border: 2px solid var(--soft); border-radius: 12px; font-family: 'Noto Serif SC', serif; font-size: 1rem; color: var(--text); background: var(--cream); outline: none; text-align: center; letter-spacing: 4px; margin-bottom: 16px; transition: border-color 0.2s; }
+  .pwd-modal input:focus { border-color: var(--pink); }
+  .pwd-shake { animation: shake 0.4s ease; }
+  @keyframes shake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-8px)} 40%,80%{transform:translateX(8px)} }
+  /* 代码输出弹窗 */
+  .code-modal { background: white; border-radius: 24px; padding: 32px; width: min(620px, 92vw); max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(233,122,184,0.3); animation: popIn 0.3s ease; border: 3px solid var(--pink); }
+  .code-modal h3 { font-family: 'ZCOOL XiaoWei', serif; font-size: 1.3rem; color: var(--pink-deep); margin-bottom: 6px; text-align: center; }
+  .code-modal .sub { font-size: 0.82rem; color: #c0a0b0; text-align: center; margin-bottom: 16px; }
+  .code-block { background: #2d1b30; color: #f8d7e8; border-radius: 12px; padding: 16px; font-family: monospace; font-size: 0.78rem; line-height: 1.6; overflow-x: auto; white-space: pre; margin-bottom: 16px; max-height: 320px; overflow-y: auto; }
+  .copy-success { color: var(--pink-deep); font-size: 0.85rem; text-align: center; height: 20px; margin-bottom: 8px; }
 </style>
 </head>
 <body>
 
-<!-- Background bubbles -->
 <div class="deco-bg" id="decoBg"></div>
 
-<!-- Header -->
 <header>
   <div class="avatar-wrap">
-    <div class="avatar" id="avatarEmoji">🎨</div>
+    <div class="avatar">🎨</div>
     <div class="avatar-ring"></div>
   </div>
-  <h1 id="siteTitle">我的CP画廊</h1>
-  <p class="tagline" id="siteTagline">✨ 用爱画CP，用画记录爱 ✨</p>
-  <div class="header-tags" id="headerTags">
-    <span class="htag">#Q版</span>
-    <span class="htag">#CP向</span>
-    <span class="htag">#手绘</span>
-    <span class="htag">#画廊</span>
+  <h1>坨坨的小小画廊</h1>
+  <p class="tagline">✨ 用爱画BP，用画记录爱 ✨</p>
+  <div class="header-tags">
+    <span class="htag">#❤</span>
+    <span class="htag">#BounPrem</span>
+    <span class="htag">#Bb0un</span>
+    <span class="htag">#Prem_space</span>
   </div>
 </header>
 
-<!-- Nav -->
 <nav>
-  <button class="nav-btn active" onclick="scrollTo('gallery')">🖼️ 插画</button>
-  <button class="nav-btn" onclick="scrollTo('posts')">📝 文字</button>
-  <button class="nav-btn" onclick="scrollTo('videos')">🎬 视频</button>
-  <button class="nav-btn" onclick="scrollTo('links')">🔗 链接</button>
-  <button class="nav-btn" onclick="openSettings()">⚙️ 设置</button>
+  <a class="nav-btn active" href="#gallery">🖼️ 插画</a>
+  <a class="nav-btn" href="#posts">📝 文字</a>
+  <a class="nav-btn" href="#videos">🎬 视频</a>
+  <a class="nav-btn" href="#links">🔗 主页</a>
 </nav>
 
-<!-- Main -->
 <main>
-  <!-- Gallery -->
-  <section class="section" id="gallery">
-    <div class="section-title">🖼️ 插画展示</div>
-    <div class="gallery-grid" id="galleryGrid">
-      <!-- Demo cards -->
-      <div class="card" onclick="openLightbox(this)">
-        <div class="card-img">🌸</div>
-        <div class="card-body">
-          <div class="card-title">春日约会</div>
-          <div class="card-desc">他们手牵手走在樱花树下，好甜好甜！</div>
-          <div class="card-tags"><span class="tag">日常</span><span class="tag">甜文配图</span></div>
-        </div>
-      </div>
-      <div class="card" onclick="openLightbox(this)">
-        <div class="card-img">🌙</div>
-        <div class="card-body">
-          <div class="card-title">月下重逢</div>
-          <div class="card-desc">同款月亮下，两个人的剪影。</div>
-          <div class="card-tags"><span class="tag">BE警告</span><span class="tag">氛围感</span></div>
-        </div>
-      </div>
-      <div class="card" onclick="openLightbox(this)">
-        <div class="card-img">☕</div>
-        <div class="card-body">
-          <div class="card-title">咖啡馆的下午</div>
-          <div class="card-desc">Q版风格，两只团子对视微笑的小场景。</div>
-          <div class="card-tags"><span class="tag">Q版</span><span class="tag">日常</span></div>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- Posts -->
-  <section class="section" id="posts">
-    <div class="section-title">📝 碎碎念</div>
-    <div class="text-posts" id="postList">
-      <div class="post-card">
-        <div class="post-date">2025 · 03 · 07</div>
-        <div class="post-title">关于这个画廊</div>
-        <div class="post-content">这里是我放CP图的小角落，平时会更新插画、写一些配图的碎碎念，偶尔也会发过程视频。如果喜欢的话欢迎来玩！(´▽`ʃ♡ƪ)</div>
-      </div>
-    </div>
-  </section>
+  <!-- ===== 主内容区 ===== -->
+  <div id="mainContent">
 
-  <!-- Videos -->
-  <section class="section" id="videos">
-    <div class="section-title">🎬 视频专区</div>
-    <div class="video-grid" id="videoGrid">
-      <div class="video-card">
-        <div class="video-wrap">
-          <div class="video-placeholder">
-            <button class="play-btn">▶</button>
-            <span style="font-size:0.85rem;opacity:0.7">上传或添加视频链接</span>
+    <!-- Gallery -->
+    <section class="section" id="gallery">
+      <div class="section-header">
+        <div class="section-title">🖼️ 插画展示</div>
+        <div class="section-title-line"></div>
+        <div class="sort-controls">
+          <span class="sort-label">排序：</span>
+          <button class="sort-btn active" onclick="sortCards('draw','desc',this)">🎨 创作↓</button>
+          <button class="sort-btn" onclick="sortCards('draw','asc',this)">🎨 创作↑</button>
+          <button class="sort-btn" onclick="sortCards('event','desc',this)">🗓️ 活动↓</button>
+          <button class="sort-btn" onclick="sortCards('event','asc',this)">🗓️ 活动↑</button>
+        </div>
+      </div>
+
+      <!-- 标签搜索栏 -->
+      <div class="tag-search-bar">
+        <input class="tag-search-input" type="text" id="tagSearchInput" placeholder="🔍 搜索标签…" oninput="filterBySearch(this.value)">
+        <button class="tag-search-clear" id="tagSearchClear" onclick="clearSearch()">✕ 清除</button>
+        <div class="tag-cloud" id="tagCloud"></div>
+      </div>
+      <div class="gallery-empty" id="galleryEmpty">没有找到相关作品 (´;ω;`) 换个标签试试吧～</div>
+
+      <div class="gallery-grid" id="galleryGrid">
+
+        <div class="card" data-draw="2025-03-07" data-event="2025-01-18" data-tags="脑洞 SEXY">
+          <div class="card-img" onclick="openLightbox(this)">
+            <img src="images/反转PLAY.jpg" alt="反转PLAY">
+          </div>
+          <div class="card-body">
+            <div class="card-title">反转PLAY</div>
+            <div class="card-desc">是甘愿沉沦，是互相着迷！</div>
+            <div class="card-tags">
+			  <span class="tag" onclick="filterByTag(this)">BounPrem</span>
+              <span class="tag" onclick="filterByTag(this)">脑洞</span>
+              <span class="tag" onclick="filterByTag(this)">SEXY</span>
+            </div>
+          </div>
+          <button class="card-note-toggle" onclick="toggleNote(this)">
+            <span>💬 碎碎念 &amp; 🗓️时间</span>
+            <span class="arrow">▼</span>
+          </button>
+          <div class="card-note-panel">
+            <div class="card-dates">
+              <div class="card-date-item">🎨 <span class="di">脑洞于</span> 2025.02.01</div>
+              <div class="card-date-item">✅ <span class="di">完成于</span> 2025.02.21</div>
+              <div class="card-date-item">📍 <span class="di">参考活动</span> 2025.01.25<span class="event-name">BB上海见面会</span></div>
+              <div class="card-date-item">📍 <span class="di">参考活动</span> 2025.01.28<span class="event-name">BPpaody观影活动</span></div>
+            </div>
+            <div class="card-note-text"> 当时刷到跪姿BB就一整个脑洞满天飞~后来加上银框眼镜的小包~谁懂啊 这种禁欲系 但我还是要强调我是坚定站BP哒 BP这样吃起来更香**(¬‿¬ )** </div>
+            <div class="card-note-links">
+              <a class="note-link" href="#" target="_blank">🔗 原活动帖</a>
+              <a class="note-link" href="#" target="_blank">📖 对应同人文</a>
+            </div>
           </div>
         </div>
-        <div class="card-body">
-          <div class="card-title">绘画过程 · 春日约会</div>
-          <div class="card-desc" style="font-size:0.8rem;color:#a07090">从草稿到上色全过程录屏</div>
+
+        <div class="card" data-draw="2026-01-11" data-event="2025-12-24" data-tags="bb0un 对镜自拍 鱼眼">
+          <div class="card-img" onclick="openLightbox(this)">
+            <img src="images/BB便利店对镜自拍.jpg" alt="便利店自拍">
+          </div>
+          <div class="card-body">
+            <div class="card-title">便利店自拍</div>
+            <div class="card-desc">BB从日本发来的明信片</div>
+            <div class="card-tags">
+              <span class="tag" onclick="filterByTag(this)">bb0un</span>
+              <span class="tag" onclick="filterByTag(this)">对镜自拍</span>
+              <span class="tag" onclick="filterByTag(this)">鱼眼</span>
+            </div>
+          </div>
+          <button class="card-note-toggle" onclick="toggleNote(this)">
+            <span>💬 碎碎念 &amp; 🗓️时间</span>
+            <span class="arrow">▼</span>
+          </button>
+          <div class="card-note-panel">
+            <div class="card-dates">
+              <div class="card-date-item">🎨 <span class="di">脑洞于</span> 2026.12.24</div>
+			  <div class="card-date-item">✅ <span class="di">完成于</span> 2025.01.11</div>
+              <div class="card-date-item">📍 <span class="di">参考活动</span> 2025.12.24<span class="event-name">BB ig更新</span></div>
+            </div>
+            <div class="card-note-text">酷酷哒自拍 鱼眼配色便利店场景很好看 虽然但是这个场景画的我想吐血/(ㄒoㄒ)/~~</div>
+            <div class="card-note-links">
+              <a class="note-link" href="https://www.instagram.com/p/DSpNCE-EeY5/?img_index=3&igsh=anc3c2w4dm40c3U0" target="_blank">🔗 BB-ig</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Posts -->
+    <section class="section" id="posts">
+      <div class="section-header">
+        <div class="section-title">📝 碎碎念</div>
+        <div class="section-title-line"></div>
+      </div>
+      <div class="text-posts" id="postList">
+        <div class="post-card">
+          <div class="post-date">2025 · 03 · 07</div>
+          <div class="post-title">关于这个画廊</div>
+          <div class="post-content">是想了很久的小网站，这里是我用来放BP产出的小角落，平时会更新插画、写一些碎碎念，偶尔也会发剪辑视频呀。如果喜欢的话欢迎来玩！(´▽`ʃ♡ƪ)</div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Links -->
-  <section class="section" id="links">
-    <div class="section-title">🔗 我的主页</div>
-    <div class="links-grid" id="linksGrid">
-      <a class="link-card" href="#" target="_blank">
-        <div class="link-icon">🐦</div>
-        <div class="link-name">微博</div>
-        <div class="link-desc">日常更新</div>
-      </a>
-      <a class="link-card" href="#" target="_blank">
-        <div class="link-icon">🎨</div>
-        <div class="link-name">Pixiv</div>
-        <div class="link-desc">高清原图</div>
-      </a>
-      <a class="link-card" href="#" target="_blank">
-        <div class="link-icon">📺</div>
-        <div class="link-name">哔哩哔哩</div>
-        <div class="link-desc">绘画视频</div>
-      </a>
-      <a class="link-card" href="#" target="_blank">
-        <div class="link-icon">✉️</div>
-        <div class="link-name">约稿邮箱</div>
-        <div class="link-desc">欢迎约稿</div>
-      </a>
+    <!-- Videos -->
+    <section class="section" id="videos">
+      <div class="section-header">
+        <div class="section-title">🎬 视频专区</div>
+        <div class="section-title-line"></div>
+      </div>
+      <div class="video-grid" id="videoGrid">
+        <div class="video-card">
+          <div class="video-wrap">
+            <iframe src="https://player.bilibili.com/player.html?bvid=BV1Q9gGzcEyC&autoplay=0" allowfullscreen allow="autoplay"></iframe>
+          </div>
+          <div class="card-body">
+            <div class="card-title">我想我已慢慢喜欢你</div>
+            <div class="card-desc" style="font-size:0.8rem;color:#a07090">BounPrem WinTeam剪辑向｜麻绳</div>
+          </div>
+        </div>
+        <div class="video-card">
+          <div class="video-wrap">
+            <iframe src="https://player.bilibili.com/player.html?bvid=BV19s8dzBEAp&autoplay=0" allowfullscreen allow="autoplay"></iframe>
+          </div>
+          <div class="card-body">
+            <div class="card-title">这种感觉叫做爱，笨蛋</div>
+            <div class="card-desc" style="font-size:0.8rem;color:#a07090">BounPrem WinTeam剪辑向｜麻绳</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Links -->
+    <section class="section" id="links">
+      <div class="section-header">
+        <div class="section-title">🔗 我的主页</div>
+        <div class="section-title-line"></div>
+      </div>
+      <div class="links-grid" id="linksGrid">
+        <a class="link-card" href="https://weibo.com/u/7408767180" target="_blank">
+          <div class="link-icon">🐦</div><div class="link-name">微博</div><div class="link-desc">日常更新</div>
+        </a>
+        <a class="link-card" href="https://xhslink.com/m/5yhVayqyv8v" target="_blank">
+          <div class="link-icon">📕</div><div class="link-name">小红书</div><div class="link-desc">日常更新</div>
+        </a>
+        <a class="link-card" href="https://x.com/tuotuo_0610" target="_blank">
+          <div class="link-icon">🖤</div><div class="link-name">Twitter / X</div><div class="link-desc">日常更新</div>
+        </a>
+        <a class="link-card" href="https://b23.tv/Glaeruy" target="_blank">
+          <div class="link-icon">📺</div><div class="link-name">哔哩哔哩</div><div class="link-desc">CP向视频</div>
+        </a>
+        <div class="link-card" onclick="showCommission()">
+          <div class="link-icon">✏️</div><div class="link-name">约稿须知</div><div class="link-desc">价目表 & 流程</div>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- end mainContent -->
+
+  <!-- ===== 约稿页面 ===== -->
+  <div id="commissionPage" class="commission-page">
+    <button class="commission-back" onclick="hideCommission()">← 返回画廊</button>
+
+    <div class="commission-hero">
+      <h2>✏️ 约稿须知</h2>
+      <p>欢迎来约稿！以下是价目表和流程，请仔细阅读后再联系哦～<br>有任何问题都可以直接私信问我 (ฅ´ω`ฅ)</p>
     </div>
-  </section>
+
+    <!-- 价目表 -->
+    <div class="commission-grid">
+      <div class="commission-card">
+        <h3>🎨 价目表</h3>
+        <div class="price-row"><span class="price-name">大头（小头像）</span><span class="price-val">28元/人 · 56元/2人</span></div>
+        <div class="price-row"><span class="price-name">大头（大头像）</span><span class="price-val">54元/人 · 108元/2人</span></div>
+        <div class="price-row"><span class="price-name">豆豆眼全身</span><span class="price-val">58元/人 · 116元/2人</span></div>
+        <div class="price-row"><span class="price-name">全身</span><span class="price-val">78元/人 · 156元/2人</span></div>
+        <div class="price-row"><span class="price-name">皮可乐 / 安安 / Paody</span><span class="price-val">8元/只</span></div>
+        <div class="commission-note">
+          默认无背景或简单背景，看手感<br>
+          <strong>复杂元素或背景咨询报价</strong><br>
+          各种制品设计可具体咨询，每种制品设计第一次接稿会有优惠价
+        </div>
+      </div>
+      <div class="commission-card">
+        <h3>💡 授权说明</h3>
+        <div class="price-row"><span class="price-name">默认自用</span><span class="price-val">可做线下应援免费物料</span></div>
+        <div class="price-row"><span class="price-name">商业用途</span><span class="price-val">原价 × 2</span></div>
+        <div class="price-row"><span class="price-name">买断</span><span class="price-val">原价 × 3</span></div>
+      </div>
+    </div>
+
+    <!-- 例图展示 -->
+    <div class="sample-section">
+      <h3>🖼️ 例图参考</h3>
+      <p style="font-size:0.82rem;color:#c0a0b0;margin-bottom:12px;">更多参考可以在主页寻找呀</p>
+      <div class="sample-grid">
+        <div class="sample-placeholder" onclick="openLightboxSrc(this)"><img src="images/小可怜phupua.jpg" alt="小可怜phupua"></div>
+        <div class="sample-placeholder" onclick="openLightboxSrc(this)"><img src="images/万圣节小恶魔.jpg" alt="万圣节小恶魔"></div>
+        <div class="sample-placeholder" onclick="openLightboxSrc(this)"><img src="images/运动会一家三口.jpg" alt="运动会一家三口"></div>
+        <div class="sample-placeholder" onclick="openLightboxSrc(this)"><img src="images/小包想念柏林.jpg" alt="小包想念柏林"></div>
+        <div class="sample-placeholder" onclick="openLightboxSrc(this)"><img src="images/邪恶Neil到酱汁.jpg" alt="邪恶Neil到酱汁"></div>
+        <div class="sample-placeholder" onclick="openLightboxSrc(this)"><img src="images/厕所愤怒Krit.jpg" alt="厕所愤怒Krit"></div>
+      </div>
+    </div>
+
+    <!-- 约稿流程 -->
+    <div class="flow-section">
+      <h3>📋 约稿流程</h3>
+      <div class="flow-steps">
+        <div class="flow-step"><div class="flow-num">1</div><div class="flow-text"><strong>发起约稿</strong> — 自带照片和明确要求私信，照片尽量清晰，描述想约的尺寸、设计、用途</div></div>
+        <div class="flow-step"><div class="flow-num">2</div><div class="flow-text"><strong>预付定金</strong> — 预付 50% 定金排单</div></div>
+        <div class="flow-step"><div class="flow-num">3</div><div class="flow-text"><strong>草稿确认</strong> — 确定整体动作，可改 2 次</div></div>
+        <div class="flow-step"><div class="flow-num">4</div><div class="flow-text"><strong>线稿确认</strong> — 修改细节，可改 2 次</div></div>
+        <div class="flow-step"><div class="flow-num">5</div><div class="flow-text"><strong>上色确认</strong> — 整体色调氛围，可改 2 次</div></div>
+        <div class="flow-step"><div class="flow-num">6</div><div class="flow-text"><strong>结尾款</strong> — 付清余款</div></div>
+        <div class="flow-step"><div class="flow-num">7</div><div class="flow-text"><strong>发送成图</strong> — JPG、PNG透明底。<strong>默认打码展示</strong>，不想展示可以提前说～<br><span style="color:#c0a0b0">中间要求可以提的详细一点，我会努力达成！</span><br>⚠️ 不倒车修改</div></div>
+      </div>
+    </div>
+
+    <!-- 工期 -->
+    <div class="schedule-section">
+      <h3>⏰ 参考工期</h3>
+      <div class="schedule-row"><span class="schedule-label">大头 / 单人半身 / 单人全身</span><span class="schedule-days">排到后 3–7 天</span></div>
+      <div class="schedule-row"><span class="schedule-label">双人 / 三人 / 加宠物等</span><span class="schedule-days">排到后 5–12 天</span></div>
+      <p class="commission-note" style="margin-top:14px;">有特殊情况会提前说明，有时间都会尽快哒～<br>（现生忙碌 + 腱鞘炎偶发 = 工期报名 <span style="color:var(--pink-deep)">♡</span>）</p>
+    </div>
+
+    <!-- 联系按钮 -->
+    <div class="contact-btn-area">
+      <button class="contact-btn" onclick="showQrCode()">
+        💬 扫码联系我
+      </button>
+    </div>
+  </div><!-- end commissionPage -->
+
 </main>
 
 <footer>
-  用 <span>♥</span> 画的每一张图，都是献给我CP的情书。<br>
-  <span>© 2025 我的CP画廊</span> · 转载请注明出处
+  用 <span>♥</span> 画的每一张图，都是献给BP的情书。<br>
+  <span>© 坨坨的小小画廊</span> · 转载请注明出处
 </footer>
 
-<!-- FAB -->
-<button class="fab" onclick="openModal()" title="添加新内容">＋</button>
+<button class="fab" onclick="checkPassword()" title="编辑模式">＋</button>
 
 <!-- Add Modal -->
 <div class="modal-overlay" id="addModal">
@@ -620,79 +522,45 @@
       <button class="mtype" onclick="switchType('video',this)">🎬 视频</button>
       <button class="mtype" onclick="switchType('link',this)">🔗 链接</button>
     </div>
-
-    <!-- Image form -->
     <div id="form-image">
+      <div class="form-group"><label>标题</label><input type="text" id="img-title" placeholder="给这张图起个名字~"></div>
       <div class="form-group">
-        <label>标题</label>
-        <input type="text" id="img-title" placeholder="给这张图起个名字~">
+        <label>图片文件名</label>
+        <input type="text" id="img-path" placeholder="例：fanzhuan.jpg 或 images/fanzhuan.jpg">
+        <p class="form-hint">把图片放到 images/ 文件夹，只填文件名即可；也可粘贴完整 URL</p>
       </div>
+      <div class="form-group"><label>描述</label><textarea id="img-desc" placeholder="一句话介绍这张图~"></textarea></div>
+      <div class="form-group"><label>标签（用空格分隔）</label><input type="text" id="img-tags" placeholder="Q版 日常 甜"></div>
+      <div class="form-group"><label>🎨 脑洞时间（建稿/想法，可不填）</label><input type="date" id="img-idea-date"></div>
+      <div class="form-group"><label>✅ 完成时间（可不填）</label><input type="date" id="img-draw-date"></div>
+      <div class="form-group"><label>📍 参考活动时间（可不填）</label><input type="date" id="img-event-date"></div>
+      <div class="form-group"><label>📌 活动名称（可不填）</label><input type="text" id="img-event-name" placeholder="例：BB上海见面会 / BPpaody观影"><p class="form-hint">会显示在日期下方，可填多个用换行隔开（每行对应一个活动时间）</p></div>
+      <div class="form-group"><label>💬 碎碎念</label><textarea id="img-note" placeholder="画这张图的感受、灵感来源…随便写~" style="min-height:80px;"></textarea></div>
       <div class="form-group">
-        <label>图片链接（或上传后的URL）</label>
-        <input type="text" id="img-url" placeholder="https://... 或留空用emoji表情">
-      </div>
-      <div class="form-group">
-        <label>封面Emoji（没有图片时显示）</label>
-        <input type="text" id="img-emoji" placeholder="🌸" maxlength="4">
-      </div>
-      <div class="form-group">
-        <label>描述</label>
-        <textarea id="img-desc" placeholder="说说这张图的故事~"></textarea>
-      </div>
-      <div class="form-group">
-        <label>标签（用空格分隔）</label>
-        <input type="text" id="img-tags" placeholder="Q版 日常 甜">
+        <label>🔗 活动/相关链接（每行一个，格式：名称 链接）</label>
+        <textarea id="img-links" placeholder="原活动帖 https://...&#10;对应同人文 https://..." style="min-height:70px;"></textarea>
+        <p class="form-hint">每行写：显示名称 空格 链接地址</p>
       </div>
     </div>
-
-    <!-- Post form -->
     <div id="form-post" style="display:none">
-      <div class="form-group">
-        <label>标题</label>
-        <input type="text" id="post-title" placeholder="写点什么~">
-      </div>
-      <div class="form-group">
-        <label>正文</label>
-        <textarea id="post-content" placeholder="碎碎念内容~" style="min-height:120px"></textarea>
-      </div>
+      <div class="form-group"><label>标题</label><input type="text" id="post-title" placeholder="写点什么~"></div>
+      <div class="form-group"><label>正文</label><textarea id="post-content" placeholder="碎碎念内容~" style="min-height:120px"></textarea></div>
     </div>
-
-    <!-- Video form -->
     <div id="form-video" style="display:none">
+      <div class="form-group"><label>标题</label><input type="text" id="vid-title" placeholder="视频标题"></div>
       <div class="form-group">
-        <label>标题</label>
-        <input type="text" id="vid-title" placeholder="视频标题">
+        <label>B站BV号</label>
+        <input type="text" id="vid-url" placeholder="例：BV1Q9gGzcEyC">
+        <p class="form-hint">直接填BV号即可</p>
       </div>
-      <div class="form-group">
-        <label>视频嵌入链接（B站/YouTube embed URL）</label>
-        <input type="text" id="vid-url" placeholder="https://player.bilibili.com/...">
-      </div>
-      <div class="form-group">
-        <label>描述</label>
-        <textarea id="vid-desc" placeholder="视频简介~"></textarea>
-      </div>
+      <div class="form-group"><label>描述</label><textarea id="vid-desc" placeholder="视频简介~"></textarea></div>
     </div>
-
-    <!-- Link form -->
     <div id="form-link" style="display:none">
-      <div class="form-group">
-        <label>平台名称</label>
-        <input type="text" id="lnk-name" placeholder="微博 / Pixiv / B站...">
-      </div>
-      <div class="form-group">
-        <label>链接地址</label>
-        <input type="text" id="lnk-url" placeholder="https://...">
-      </div>
-      <div class="form-group">
-        <label>图标Emoji</label>
-        <input type="text" id="lnk-icon" placeholder="🎨" maxlength="4">
-      </div>
-      <div class="form-group">
-        <label>简介</label>
-        <input type="text" id="lnk-desc" placeholder="在这里更新XXX">
-      </div>
+      <div class="form-group"><label>平台名称</label><input type="text" id="lnk-name" placeholder="微博 / Pixiv / B站..."></div>
+      <div class="form-group"><label>链接地址</label><input type="text" id="lnk-url" placeholder="https://..."></div>
+      <div class="form-group"><label>图标Emoji</label><input type="text" id="lnk-icon" placeholder="🎨" maxlength="4"></div>
+      <div class="form-group"><label>简介</label><input type="text" id="lnk-desc" placeholder="在这里更新XXX"></div>
     </div>
-
     <div class="btn-row">
       <button class="btn btn-ghost" onclick="closeModal()">取消</button>
       <button class="btn btn-primary" onclick="addContent()">确定添加 ✓</button>
@@ -700,34 +568,45 @@
   </div>
 </div>
 
-<!-- Settings Modal -->
-<div class="modal-overlay" id="settingsModal">
-  <div class="modal">
-    <h3>⚙️ 网站设置</h3>
-    <div class="form-group">
-      <label>网站标题</label>
-      <input type="text" id="set-title" placeholder="我的CP画廊">
-    </div>
-    <div class="form-group">
-      <label>副标题</label>
-      <input type="text" id="set-tagline" placeholder="✨ 用爱画CP，用画记录爱 ✨">
-    </div>
-    <div class="form-group">
-      <label>头像Emoji</label>
-      <input type="text" id="set-avatar" placeholder="🎨" maxlength="4">
-    </div>
-    <div class="form-group">
-      <label>标签（用空格分隔）</label>
-      <input type="text" id="set-tags" placeholder="#Q版 #CP向 #手绘">
-    </div>
-    <div class="btn-row">
-      <button class="btn btn-ghost" onclick="closeSettings()">取消</button>
-      <button class="btn btn-primary" onclick="saveSettings()">保存 ✓</button>
+<!-- 密码弹窗 -->
+<div class="modal-overlay" id="pwdModal">
+  <div class="pwd-modal">
+    <h3>🔒 编辑模式</h3>
+    <input type="password" id="pwdInput" placeholder="请输入密码" onkeydown="if(event.key==='Enter')verifyPwd()">
+    <div class="btn-row" style="justify-content:center;">
+      <button class="btn btn-ghost" onclick="document.getElementById('pwdModal').classList.remove('open')">取消</button>
+      <button class="btn btn-primary" onclick="verifyPwd()">确认</button>
     </div>
   </div>
 </div>
 
-<!-- Lightbox -->
+<!-- 代码输出弹窗 -->
+<div class="modal-overlay" id="codeModal">
+  <div class="code-modal">
+    <h3>✅ 复制代码到文件里</h3>
+    <p class="sub"></p>
+    <div class="copy-success" id="copySuccess"></div>
+    <div class="code-block" id="codeOutput"></div>
+    <div class="btn-row" style="justify-content:center;gap:12px;">
+      <button class="btn btn-primary" onclick="copyCode()">📋 一键复制</button>
+      <button class="btn btn-ghost" onclick="document.getElementById('codeModal').classList.remove('open')">关闭</button>
+    </div>
+  </div>
+</div>
+
+<!-- 微信二维码弹窗 -->
+<div class="modal-overlay" id="qrModal">
+  <div class="qr-modal">
+    <h3>💬 微信联系我</h3>
+    <div class="qr-box">
+      <!-- 把 src 改成你的微信二维码截图路径，如 images/wechat_qr.jpg -->
+      <img src="images/wechat_qr.jpg" alt="微信二维码" onerror="this.parentElement.innerHTML='<span style=\'font-size:60px\'>📱</span><p style=\'font-size:0.75rem;color:#c0a0b0;margin-top:8px\'>请将二维码图片<br>存为 images/wechat_qr.jpg</p>'">
+    </div>
+    <p class="qr-hint">长按或扫描二维码添加微信<br>备注「约稿」哦～</p>
+    <button class="btn btn-ghost" onclick="document.getElementById('qrModal').classList.remove('open')">关闭</button>
+  </div>
+</div>
+
 <div class="lightbox" id="lightbox" onclick="closeLightbox()">
   <button class="lightbox-close" onclick="closeLightbox()">✕</button>
   <img id="lightboxImg" src="" alt="">
@@ -741,13 +620,7 @@ for (let i = 0; i < 14; i++) {
   const b = document.createElement('div');
   b.className = 'bubble';
   const size = 30 + Math.random() * 80;
-  b.style.cssText = `
-    width:${size}px; height:${size}px;
-    background:${colors[Math.floor(Math.random()*colors.length)]};
-    left:${Math.random()*100}%;
-    animation-duration:${8+Math.random()*12}s;
-    animation-delay:${-Math.random()*12}s;
-  `;
+  b.style.cssText = `width:${size}px;height:${size}px;background:${colors[Math.floor(Math.random()*colors.length)]};left:${Math.random()*100}%;animation-duration:${8+Math.random()*12}s;animation-delay:${-Math.random()*12}s;`;
   deco.appendChild(b);
 }
 
@@ -763,51 +636,213 @@ document.addEventListener('click', e => {
   setTimeout(() => s.remove(), 800);
 });
 
-// ===== SCROLL TO =====
-function scrollTo(id) {
-  document.getElementById(id).scrollIntoView({behavior:'smooth', block:'start'});
-  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  event.target.classList.add('active');
+// ===== NAV =====
+const sections = ['gallery','posts','videos','links'];
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && window.scrollY >= el.offsetTop - 80) current = id;
+  });
+  document.querySelectorAll('.nav-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.getAttribute('href') === '#' + current);
+  });
+});
+
+// ===== 约稿页面 =====
+function showCommission() {
+  document.getElementById('mainContent').style.display = 'none';
+  document.getElementById('commissionPage').classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function hideCommission() {
+  document.getElementById('mainContent').style.display = '';
+  document.getElementById('commissionPage').classList.remove('active');
+}
+function showQrCode() {
+  document.getElementById('qrModal').classList.add('open');
+}
+function openLightboxSrc(el) {
+  const img = el.querySelector('img');
+  if (img) {
+    document.getElementById('lightboxImg').src = img.src;
+    document.getElementById('lightbox').classList.add('open');
+  }
+}
+document.getElementById('qrModal').addEventListener('click', function(e) { if(e.target===this) this.classList.remove('open'); });
+
+// ===== 标签筛选 =====
+let activeTagFilter = '';
+
+function getCardTags(card) {
+  // 优先从 DOM 里读实际渲染的标签，而不是 data-tags 属性
+  return Array.from(card.querySelectorAll('.card-tags .tag')).map(t => t.textContent.trim());
+}
+
+function buildTagCloud() {
+  const tagSet = new Set();
+  document.querySelectorAll('#galleryGrid .card').forEach(card => {
+    getCardTags(card).forEach(t => tagSet.add(t));
+  });
+  const cloud = document.getElementById('tagCloud');
+  cloud.innerHTML = '';
+  tagSet.forEach(tag => {
+    const btn = document.createElement('button');
+    btn.className = 'tag-filter-btn';
+    btn.textContent = tag;
+    btn.onclick = () => toggleTagFilter(tag, btn);
+    cloud.appendChild(btn);
+  });
+}
+
+function toggleTagFilter(tag, btn) {
+  if (activeTagFilter === tag) {
+    activeTagFilter = '';
+    document.querySelectorAll('.tag-filter-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tagSearchInput').value = '';
+    document.getElementById('tagSearchClear').classList.remove('visible');
+  } else {
+    activeTagFilter = tag;
+    document.querySelectorAll('.tag-filter-btn').forEach(b => b.classList.toggle('active', b.textContent === tag));
+    document.getElementById('tagSearchInput').value = tag;
+    document.getElementById('tagSearchClear').classList.add('visible');
+  }
+  applyFilter();
+}
+
+function filterByTag(el) {
+  const tag = el.textContent.trim();
+  toggleTagFilter(tag, document.querySelector(`.tag-filter-btn:not(.active)`));
+  // sync cloud button
+  document.querySelectorAll('.tag-filter-btn').forEach(b => b.classList.toggle('active', b.textContent === activeTagFilter));
+  document.getElementById('tagSearchInput').value = activeTagFilter;
+  document.getElementById('tagSearchClear').classList.toggle('visible', !!activeTagFilter);
+}
+
+function filterBySearch(val) {
+  activeTagFilter = val.trim();
+  document.getElementById('tagSearchClear').classList.toggle('visible', !!activeTagFilter);
+  document.querySelectorAll('.tag-filter-btn').forEach(b => b.classList.toggle('active', b.textContent === activeTagFilter));
+  applyFilter();
+}
+
+function clearSearch() {
+  activeTagFilter = '';
+  document.getElementById('tagSearchInput').value = '';
+  document.getElementById('tagSearchClear').classList.remove('visible');
+  document.querySelectorAll('.tag-filter-btn').forEach(b => b.classList.remove('active'));
+  applyFilter();
+}
+
+function applyFilter() {
+  const q = activeTagFilter.toLowerCase();
+  let visible = 0;
+  document.querySelectorAll('#galleryGrid .card').forEach(card => {
+    const tags = getCardTags(card).join(' ').toLowerCase();
+    const title = card.querySelector('.card-title')?.textContent.toLowerCase() || '';
+    const match = !q || tags.includes(q) || title.includes(q);
+    card.classList.toggle('hidden', !match);
+    if (match) visible++;
+  });
+  document.getElementById('galleryEmpty').classList.toggle('show', visible === 0);
+}
+
+// ===== 排序 =====
+function sortCards(type, dir, el) {
+  document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  const grid = document.getElementById('galleryGrid');
+  const cards = Array.from(grid.querySelectorAll('.card'));
+  cards.sort((a, b) => {
+    const va = a.dataset[type === 'draw' ? 'draw' : 'event'] || '0000-00-00';
+    const vb = b.dataset[type === 'draw' ? 'draw' : 'event'] || '0000-00-00';
+    return dir === 'desc' ? vb.localeCompare(va) : va.localeCompare(vb);
+  });
+  cards.forEach(c => grid.appendChild(c));
+}
+
+// ===== 碎碎念折叠 =====
+function toggleNote(btn) {
+  const panel = btn.nextElementSibling;
+  const isOpen = panel.classList.contains('open');
+  panel.classList.toggle('open', !isOpen);
+  btn.classList.toggle('open', !isOpen);
 }
 
 // ===== MODAL =====
 let currentType = 'image';
-function openModal() {
-  document.getElementById('addModal').classList.add('open');
-}
-function closeModal() {
-  document.getElementById('addModal').classList.remove('open');
-}
+function openModal() { document.getElementById('addModal').classList.add('open'); }
+function closeModal() { document.getElementById('addModal').classList.remove('open'); }
 function switchType(t, el) {
   currentType = t;
-  document.querySelectorAll('.mtype').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.modal-type-tabs .mtype').forEach(b => b.classList.remove('active'));
   el.classList.add('active');
-  ['image','post','video','link'].forEach(x =>
-    document.getElementById('form-'+x).style.display = x===t?'block':'none'
-  );
+  ['image','post','video','link'].forEach(x => document.getElementById('form-'+x).style.display = x===t?'block':'none');
 }
+
+function resolveImgSrc(raw) {
+  if (!raw) return '';
+  raw = raw.trim();
+  if (raw.startsWith('http') || raw.startsWith('images/') || raw.startsWith('/') || raw.startsWith('./')) return raw;
+  return 'images/' + raw;
+}
+function formatDate(d) { return d ? d.replace(/-/g, '.') : ''; }
 
 // ===== ADD CONTENT =====
 function addContent() {
+  let _lastType = currentType, _lastData = {};
+
   if (currentType === 'image') {
-    const title = document.getElementById('img-title').value || '无题';
-    const url   = document.getElementById('img-url').value;
-    const emoji = document.getElementById('img-emoji').value || '🎨';
-    const desc  = document.getElementById('img-desc').value;
-    const tags  = document.getElementById('img-tags').value;
+    const title     = document.getElementById('img-title').value || '无题';
+    const imgSrc    = resolveImgSrc(document.getElementById('img-path').value);
+    const desc      = document.getElementById('img-desc').value;
+    const tags      = document.getElementById('img-tags').value;
+    const note      = document.getElementById('img-note').value;
+    const drawDate  = document.getElementById('img-draw-date').value;
+    const ideaDate  = document.getElementById('img-idea-date').value;
+    const eventDate = document.getElementById('img-event-date').value;
+    const eventName = document.getElementById('img-event-name').value;
+    const linksRaw  = document.getElementById('img-links').value;
+
+    const linkItems = linksRaw.trim().split('\n').filter(Boolean).map(line => {
+      const parts = line.trim().split(/\s+/);
+      const url = parts.pop(); const name = parts.join(' ') || url;
+      return { name, url };
+    });
+
     const card = document.createElement('div');
     card.className = 'card';
-    card.onclick = function(){ openLightbox(this); };
+    card.dataset.draw  = drawDate  || '0000-00-00';
+    card.dataset.event = eventDate || '';
+    card.dataset.tags  = tags;
+
+    const imgHtml   = imgSrc ? `<img src="${imgSrc}" alt="${title}">` : '🎨';
+    const tagsHtml  = tags.split(' ').filter(Boolean).map(t => `<span class="tag" onclick="filterByTag(this)">${t}</span>`).join('');
+    const linksHtml = linkItems.map(l => `<a class="note-link" href="${l.url}" target="_blank">🔗 ${l.name}</a>`).join('');
+    const datesHtml = (ideaDate || drawDate || eventDate) ? `
+          <div class="card-dates">
+            ${ideaDate  ? `<div class="card-date-item">🎨 <span class="di">脑洞于</span> ${formatDate(ideaDate)}</div>` : ''}
+            ${drawDate  ? `<div class="card-date-item">✅ <span class="di">完成于</span> ${formatDate(drawDate)}</div>` : ''}
+            ${eventDate ? `<div class="card-date-item">📍 <span class="di">参考活动</span> ${formatDate(eventDate)}${eventName ? `<span class="event-name">${eventName}</span>` : ''}</div>` : ''}
+          </div>` : '';
+
     card.innerHTML = `
-      <div class="card-img" data-url="${url}">
-        ${url ? `<img src="${url}" alt="${title}" onerror="this.style.display='none'">` : emoji}
-      </div>
+      <div class="card-img" onclick="openLightbox(this)">${imgHtml}</div>
       <div class="card-body">
         <div class="card-title">${title}</div>
         <div class="card-desc">${desc}</div>
-        <div class="card-tags">${tags.split(' ').filter(Boolean).map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+        <div class="card-tags">${tagsHtml}</div>
+      </div>
+      <button class="card-note-toggle" onclick="toggleNote(this)">
+        <span>💬 碎碎念 &amp; 🗓️时间</span><span class="arrow">▼</span>
+      </button>
+      <div class="card-note-panel">${datesHtml}
+        <div class="card-note-text">${note || ''}</div>
+        <div class="card-note-links">${linksHtml}</div>
       </div>`;
     document.getElementById('galleryGrid').prepend(card);
+    buildTagCloud(); // 更新标签云
+    _lastData = {title, imgSrc, desc, tags, note, ideaDate, drawDate, eventDate, eventName, linksRaw};
   }
 
   else if (currentType === 'post') {
@@ -817,29 +852,28 @@ function addContent() {
     const date = `${now.getFullYear()} · ${String(now.getMonth()+1).padStart(2,'0')} · ${String(now.getDate()).padStart(2,'0')}`;
     const pc = document.createElement('div');
     pc.className = 'post-card';
-    pc.innerHTML = `<div class="post-date">${date}</div>
-      <div class="post-title">${title}</div>
-      <div class="post-content">${content}</div>`;
+    pc.innerHTML = `<div class="post-date">${date}</div><div class="post-title">${title}</div><div class="post-content">${content}</div>`;
     document.getElementById('postList').prepend(pc);
+    _lastData = {title, content};
   }
 
   else if (currentType === 'video') {
-    const title = document.getElementById('vid-title').value || '绘画视频';
-    const url   = document.getElementById('vid-url').value;
-    const desc  = document.getElementById('vid-desc').value;
+    const title = document.getElementById('vid-title').value || '视频';
+    let url = document.getElementById('vid-url').value.trim();
+    const desc = document.getElementById('vid-desc').value;
+    if (/^BV/i.test(url)) url = `https://player.bilibili.com/player.html?bvid=${url}&autoplay=0`;
     const vc = document.createElement('div');
     vc.className = 'video-card';
     vc.innerHTML = `
       <div class="video-wrap">
-        ${url
-          ? `<iframe src="${url}" allowfullscreen allow="autoplay"></iframe>`
-          : `<div class="video-placeholder"><button class="play-btn">▶</button><span style="font-size:0.85rem;opacity:0.7">暂无视频</span></div>`}
+        ${url ? `<iframe src="${url}" allowfullscreen allow="autoplay"></iframe>` : ''}
       </div>
       <div class="card-body">
         <div class="card-title">${title}</div>
         <div class="card-desc" style="font-size:0.8rem;color:#a07090">${desc}</div>
       </div>`;
     document.getElementById('videoGrid').prepend(vc);
+    _lastData = {title, url, desc};
   }
 
   else if (currentType === 'link') {
@@ -848,64 +882,146 @@ function addContent() {
     const icon = document.getElementById('lnk-icon').value || '🔗';
     const desc = document.getElementById('lnk-desc').value;
     const lc = document.createElement('a');
-    lc.className = 'link-card';
-    lc.href = url; lc.target = '_blank';
-    lc.innerHTML = `<div class="link-icon">${icon}</div>
-      <div class="link-name">${name}</div>
-      <div class="link-desc">${desc}</div>`;
+    lc.className = 'link-card'; lc.href = url; lc.target = '_blank';
+    lc.innerHTML = `<div class="link-icon">${icon}</div><div class="link-name">${name}</div><div class="link-desc">${desc}</div>`;
     document.getElementById('linksGrid').appendChild(lc);
+    _lastData = {name, url, icon, desc};
   }
 
   closeModal();
-  // clear fields
-  document.querySelectorAll('.modal input, .modal textarea').forEach(el => el.value = '');
+  document.querySelectorAll('#addModal input[type=text], #addModal input[type=date], #addModal textarea').forEach(el => el.value = '');
+  document.getElementById('img-event-name').value = '';
+  document.getElementById('img-idea-date').value = '';
+  setTimeout(() => showCodeModal(_lastType, _lastData), 200);
 }
 
-// ===== SETTINGS =====
-function openSettings() {
-  document.getElementById('set-title').value   = document.getElementById('siteTitle').textContent;
-  document.getElementById('set-tagline').value = document.getElementById('siteTagline').textContent;
-  document.getElementById('set-avatar').value  = document.getElementById('avatarEmoji').textContent.trim();
-  document.getElementById('settingsModal').classList.add('open');
+// ===== PASSWORD =====
+const EDITOR_PWD = 'tuotuoinswjtu';
+function checkPassword() {
+  document.getElementById('pwdInput').value = '';
+  document.getElementById('pwdModal').classList.add('open');
+  setTimeout(() => document.getElementById('pwdInput').focus(), 100);
 }
-function closeSettings() {
-  document.getElementById('settingsModal').classList.remove('open');
-}
-function saveSettings() {
-  const t  = document.getElementById('set-title').value;
-  const tl = document.getElementById('set-tagline').value;
-  const av = document.getElementById('set-avatar').value;
-  const tgs= document.getElementById('set-tags').value;
-  if (t)  document.getElementById('siteTitle').textContent = t;
-  if (tl) document.getElementById('siteTagline').textContent = tl;
-  if (av) document.getElementById('avatarEmoji').textContent = av;
-  if (tgs) {
-    const tagEl = document.getElementById('headerTags');
-    tagEl.innerHTML = tgs.split(' ').filter(Boolean).map(t=>`<span class="htag">${t.startsWith('#')?t:'#'+t}</span>`).join('');
+function verifyPwd() {
+  const input = document.getElementById('pwdInput');
+  if (input.value === EDITOR_PWD) {
+    document.getElementById('pwdModal').classList.remove('open');
+    openModal();
+  } else {
+    input.classList.remove('pwd-shake');
+    void input.offsetWidth;
+    input.classList.add('pwd-shake');
+    input.value = '';
   }
-  closeSettings();
 }
+document.getElementById('pwdModal').addEventListener('click', function(e) { if(e.target===this) this.classList.remove('open'); });
 
 // ===== LIGHTBOX =====
-function openLightbox(card) {
-  const img = card.querySelector('img');
-  const emoji = card.querySelector('.card-img');
-  if (img && img.src) {
+function openLightbox(el) {
+  const img = el.querySelector('img');
+  if (img && img.src && !img.src.endsWith(window.location.href)) {
     document.getElementById('lightboxImg').src = img.src;
     document.getElementById('lightbox').classList.add('open');
   }
 }
-function closeLightbox() {
-  document.getElementById('lightbox').classList.remove('open');
+function closeLightbox() { document.getElementById('lightbox').classList.remove('open'); }
+document.getElementById('addModal').addEventListener('click', function(e) { if(e.target===this) closeModal(); });
+document.getElementById('lightbox').addEventListener('click', function(e) { if(e.target===this) closeLightbox(); });
+
+// ===== CODE GENERATOR =====
+function escHtml(s) { return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+function generateCardCode(type, data) {
+  if (type === 'image') {
+    const imgHtml   = data.imgSrc ? `<img src="${data.imgSrc}" alt="${escHtml(data.title)}">` : '🎨';
+    const tagsHtml  = (data.tags||'').split(' ').filter(Boolean).map(t => `<span class="tag" onclick="filterByTag(this)">${escHtml(t)}</span>`).join('');
+    const linkLines = (data.linksRaw||'').trim().split('\n').filter(Boolean).map(line => {
+      const parts = line.trim().split(/\s+/);
+      const url = parts.pop(); const name = parts.join(' ') || url;
+      return `            <a class="note-link" href="${url}" target="_blank">🔗 ${escHtml(name)}</a>`;
+    }).join('\n');
+    const ideaLine  = data.ideaDate  ? `\n            <div class="card-date-item">🎨 <span class="di">脑洞于</span> ${data.ideaDate.replace(/-/g,'.')}</div>` : '';
+    const drawLine  = data.drawDate  ? `\n            <div class="card-date-item">✅ <span class="di">完成于</span> ${data.drawDate.replace(/-/g,'.')}</div>` : '';
+    const eventLine = data.eventDate ? `\n            <div class="card-date-item">📍 <span class="di">参考活动</span> ${data.eventDate.replace(/-/g,'.')}${data.eventName ? `<span class="event-name">${escHtml(data.eventName)}</span>` : ''}</div>` : '';
+    const datesBlock = (ideaLine||drawLine||eventLine) ? `
+          <div class="card-dates">${ideaLine}${drawLine}${eventLine}
+          </div>` : '';
+    return `      <div class="card" data-draw="${data.drawDate||'0000-00-00'}" data-event="${data.eventDate||''}" data-tags="${escHtml(data.tags||'')}">
+        <div class="card-img" onclick="openLightbox(this)">
+          ${imgHtml}
+        </div>
+        <div class="card-body">
+          <div class="card-title">${escHtml(data.title)}</div>
+          <div class="card-desc">${escHtml(data.desc)}</div>
+          <div class="card-tags">${tagsHtml}</div>
+        </div>
+        <button class="card-note-toggle" onclick="toggleNote(this)">
+          <span>💬 碎碎念 &amp; 🗓️时间</span>
+          <span class="arrow">▼</span>
+        </button>
+        <div class="card-note-panel">${datesBlock}
+          <div class="card-note-text">${escHtml(data.note||'')}</div>
+          <div class="card-note-links">
+${linkLines}
+          </div>
+        </div>
+      </div>`;
+  }
+  if (type === 'post') {
+    const now = new Date();
+    const date = `${now.getFullYear()} · ${String(now.getMonth()+1).padStart(2,'0')} · ${String(now.getDate()).padStart(2,'0')}`;
+    return `      <div class="post-card">
+        <div class="post-date">${date}</div>
+        <div class="post-title">${escHtml(data.title)}</div>
+        <div class="post-content">${escHtml(data.content)}</div>
+      </div>`;
+  }
+  if (type === 'video') {
+    let url = (data.url||'').trim();
+    if (/^BV/i.test(url)) url = `https://player.bilibili.com/player.html?bvid=${url}&autoplay=0`;
+    return `      <div class="video-card">
+        <div class="video-wrap">
+          <iframe src="${url}" allowfullscreen allow="autoplay"></iframe>
+        </div>
+        <div class="card-body">
+          <div class="card-title">${escHtml(data.title)}</div>
+          <div class="card-desc" style="font-size:0.8rem;color:#a07090">${escHtml(data.desc)}</div>
+        </div>
+      </div>`;
+  }
+  if (type === 'link') {
+    return `      <a class="link-card" href="${data.url}" target="_blank">
+        <div class="link-icon">${data.icon}</div>
+        <div class="link-name">${escHtml(data.name)}</div>
+        <div class="link-desc">${escHtml(data.desc)}</div>
+      </a>`;
+  }
+  return '';
 }
 
-// ===== CLOSE ON OVERLAY CLICK =====
-document.getElementById('addModal').addEventListener('click', function(e) {
-  if (e.target === this) closeModal();
-});
-document.getElementById('settingsModal').addEventListener('click', function(e) {
-  if (e.target === this) closeSettings();
-});
+function showCodeModal(type, data) {
+  const hints = {
+    image: '📌 粘贴到 &lt;div class="gallery-grid"&gt; 里，放在第一个 &lt;div class="card"&gt; 前面',
+    post:  '📌 粘贴到 &lt;div class="text-posts"&gt; 里，放在第一个 &lt;div class="post-card"&gt; 前面',
+    video: '📌 粘贴到 &lt;div class="video-grid"&gt; 里，放在第一个 &lt;div class="video-card"&gt; 前面',
+    link:  '📌 粘贴到 &lt;div class="links-grid"&gt; 里，放在最后一个 &lt;/a&gt; 后面',
+  };
+  document.querySelector('.code-modal .sub').innerHTML = hints[type] || '';
+  document.getElementById('codeOutput').textContent = generateCardCode(type, data);
+  document.getElementById('copySuccess').textContent = '';
+  document.getElementById('codeModal').classList.add('open');
+}
+
+function copyCode() {
+  navigator.clipboard.writeText(document.getElementById('codeOutput').textContent).then(() => {
+    document.getElementById('copySuccess').textContent = '✅ 已复制！';
+    setTimeout(() => document.getElementById('copySuccess').textContent = '', 2000);
+  });
+}
+document.getElementById('codeModal').addEventListener('click', function(e) { if(e.target===this) this.classList.remove('open'); });
+
+// ===== INIT =====
+buildTagCloud();
 </script>
 </body>
 </html>
