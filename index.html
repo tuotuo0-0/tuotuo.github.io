@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎨 坨坨的的CP画廊</title>
+<link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;700&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pink: #f9a8c9;
+    --pink-deep: #e97ab8;
+    --lavender: #c9b8f0;
+    --mint: #b8eae0;
+    --cream: #fff8f2;
+    --text: #3d2c35;
+    --soft: #f5e6ef;
+    --accent: #ff7eb3;
+    --gold: #f0c060;
+    --shadow: rgba(233,122,184,0.18);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background-color: var(--cream);
+    color: var(--text);
+    font-family: 'Noto Serif SC', serif;
+    overflow-x: hidden;
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='5' fill='%23f9a8c9' stroke='%23e97ab8' stroke-width='2'/%3E%3C/svg%3E") 12 12, auto;
+  }
+
+  /* ===== FLOATING DECORATIONS ===== */
+  .deco-bg {
+    position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none; z-index: 0;
+    overflow: hidden;
+  }
+  .bubble {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.13;
+    animation: floatUp linear infinite;
+  }
+  @keyframes floatUp {
+    0%   { transform: translateY(100vh) scale(0.8); opacity: 0; }
+    10%  { opacity: 0.13; }
+    90%  { opacity: 0.13; }
+    100% { transform: translateY(-120px) scale(1.1); opacity: 0; }
+  }
+
+  /* ===== HEADER ===== */
+  header {
+    position: relative; z-index: 10;
+    text-align: center;
+    padding: 60px 20px 40px;
+    background: linear-gradient(160deg, #fff0f8 0%, #f5e6fb 50%, #e8f5fd 100%);
+    border-bottom: 3px dashed var(--pink);
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Ccircle cx='10' cy='10' r='2' fill='%23f9a8c9' opacity='0.3'/%3E%3Ccircle cx='35' cy='40' r='1.5' fill='%23c9b8f0' opacity='0.3'/%3E%3Ccircle cx='55' cy='15' r='1' fill='%23b8eae0' opacity='0.3'/%3E%3C/svg%3E");
+    animation: bgDrift 20s linear infinite;
+  }
+  @keyframes bgDrift { to { background-position: 60px 60px; } }
+
+  .avatar-wrap {
+    position: relative; display: inline-block;
+    margin-bottom: 16px;
+  }
+  .avatar {
+    width: 100px; height: 100px;
+    border-radius: 50%;
+    border: 4px solid white;
+    box-shadow: 0 4px 24px var(--shadow);
+    background: linear-gradient(135deg, var(--pink), var(--lavender));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 48px;
+    animation: wobble 3s ease-in-out infinite;
+  }
+  @keyframes wobble {
+    0%,100% { transform: rotate(-3deg) scale(1); }
+    50%      { transform: rotate(3deg) scale(1.04); }
+  }
+  .avatar-ring {
+    position: absolute; inset: -8px;
+    border-radius: 50%;
+    border: 3px dashed var(--pink-deep);
+    animation: spin 8s linear infinite;
+    opacity: 0.6;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  h1 {
+    font-family: 'Ma Shan Zheng', cursive;
+    font-size: clamp(2rem, 6vw, 3.2rem);
+    color: var(--pink-deep);
+    text-shadow: 2px 2px 0 white, 3px 3px 0 var(--lavender);
+    letter-spacing: 4px;
+    margin-bottom: 8px;
+  }
+  .tagline {
+    font-size: 0.95rem;
+    color: #a07090;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+  }
+
+  .header-tags {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    justify-content: center; margin-top: 10px;
+  }
+  .htag {
+    background: white;
+    border: 2px solid var(--pink);
+    color: var(--pink-deep);
+    padding: 4px 14px; border-radius: 99px;
+    font-size: 0.82rem; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .htag:hover {
+    background: var(--pink); color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px var(--shadow);
+  }
+
+  /* ===== NAV ===== */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255,248,252,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 2px solid var(--pink);
+    display: flex; justify-content: center;
+    gap: 4px; padding: 10px 20px;
+    flex-wrap: wrap;
+  }
+  .nav-btn {
+    padding: 7px 18px; border-radius: 99px;
+    border: 2px solid transparent;
+    background: none; cursor: pointer;
+    font-family: 'Noto Serif SC', serif;
+    font-size: 0.88rem; color: var(--text);
+    transition: all 0.2s;
+  }
+  .nav-btn:hover, .nav-btn.active {
+    background: var(--pink-deep); color: white;
+    border-color: var(--pink-deep);
+    transform: translateY(-1px);
+  }
+
+  /* ===== MAIN LAYOUT ===== */
+  main {
+    position: relative; z-index: 5;
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 20px;
+  }
+
+  .section { margin-bottom: 60px; }
+
+  .section-title {
+    font-family: 'ZCOOL XiaoWei', serif;
+    font-size: 1.6rem;
+    color: var(--pink-deep);
+    margin-bottom: 24px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-title::after {
+    content: '';
+    flex: 1; height: 2px;
+    background: linear-gradient(to right, var(--pink), transparent);
+    border-radius: 2px;
+  }
+
+  /* ===== GALLERY GRID ===== */
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 20px;
+  }
+
+  .card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px var(--shadow);
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 2px solid var(--soft);
+    cursor: pointer;
+  }
+  .card:hover {
+    transform: translateY(-6px) rotate(-0.5deg);
+    box-shadow: 0 12px 36px var(--shadow);
+  }
+
+  .card-img {
+    width: 100%; aspect-ratio: 1;
+    object-fit: cover;
+    background: linear-gradient(135deg, var(--soft), var(--lavender));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 56px;
+    position: relative; overflow: hidden;
+  }
+  .card-img::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, transparent 60%, rgba(249,168,201,0.3));
+  }
+  .card-img img {
+    width: 100%; height: 100%; object-fit: cover;
+  }
+
+  .card-body { padding: 14px 16px; }
+  .card-title {
+    font-family: 'ZCOOL XiaoWei', serif;
+    font-size: 1rem; color: var(--text);
+    margin-bottom: 6px;
+  }
+  .card-desc { font-size: 0.82rem; color: #a07090; line-height: 1.6; }
+  .card-tags { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 5px; }
+  .tag {
+    background: var(--soft); color: var(--pink-deep);
+    padding: 2px 10px; border-radius: 99px;
+    font-size: 0.75rem;
+  }
+
+  /* ===== TEXT POSTS ===== */
+  .text-posts { display: flex; flex-direction: column; gap: 20px; }
+  .post-card {
+    background: white; border-radius: 20px;
+    padding: 24px 28px;
+    border-left: 5px solid var(--pink);
+    box-shadow: 0 4px 16px var(--shadow);
+    transition: transform 0.2s;
+  }
+  .post-card:hover { transform: translateX(4px); }
+  .post-date {
+    font-size: 0.78rem; color: #c0a0b0;
+    margin-bottom: 8px; letter-spacing: 1px;
+  }
+  .post-title {
+    font-family: 'ZCOOL XiaoWei', serif;
+    font-size: 1.1rem; color: var(--text);
+    margin-bottom: 10px;
+  }
+  .post-content { font-size: 0.9rem; color: #6b5060; line-height: 1.9; }
+
+  /* ===== VIDEO SECTION ===== */
+  .video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  .video-card {
+    background: white; border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px var(--shadow);
+    border: 2px solid var(--soft);
+    transition: transform 0.3s;
+  }
+  .video-card:hover { transform: translateY(-4px); }
+  .video-wrap {
+    position: relative; width: 100%;
+    padding-top: 56.25%; /* 16:9 */
+    background: linear-gradient(135deg, #2d1b30, #1a0d2e);
+    overflow: hidden;
+  }
+  .video-wrap iframe, .video-wrap video {
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%; border: none;
+  }
+  .video-placeholder {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    color: white; gap: 10px; cursor: pointer;
+  }
+  .play-btn {
+    width: 56px; height: 56px;
+    background: var(--pink-deep);
+    border-radius: 50%; border: none;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    color: white;
+  }
+  .play-btn:hover {
+    transform: scale(1.12);
+    box-shadow: 0 0 24px rgba(233,122,184,0.6);
+  }
+  .video-card .card-body { padding: 14px 16px; }
+
+  /* ===== LINKS ===== */
+  .links-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+  }
+  .link-card {
+    background: white; border-radius: 16px;
+    padding: 20px; text-decoration: none;
+    display: flex; flex-direction: column;
+    align-items: center; gap: 10px;
+    text-align: center;
+    box-shadow: 0 4px 16px var(--shadow);
+    border: 2px solid var(--soft);
+    transition: all 0.2s; color: var(--text);
+  }
+  .link-card:hover {
+    background: var(--pink-deep); color: white;
+    transform: translateY(-4px) scale(1.03);
+    border-color: var(--pink-deep);
+  }
+  .link-icon { font-size: 32px; }
+  .link-name { font-size: 0.9rem; font-weight: 700; }
+  .link-desc { font-size: 0.78rem; opacity: 0.7; }
+
+  /* ===== ADD WORK PANEL ===== */
+  .fab {
+    position: fixed; bottom: 32px; right: 32px;
+    width: 58px; height: 58px;
+    border-radius: 50%; border: none;
+    background: linear-gradient(135deg, var(--pink-deep), var(--lavender));
+    color: white; font-size: 26px;
+    box-shadow: 0 6px 24px var(--shadow);
+    cursor: pointer; z-index: 200;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .fab:hover {
+    transform: scale(1.12) rotate(45deg);
+    box-shadow: 0 10px 32px rgba(233,122,184,0.5);
+  }
+
+  .modal-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(60,20,50,0.4);
+    backdrop-filter: blur(6px);
+    z-index: 300; align-items: center; justify-content: center;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: white; border-radius: 24px;
+    padding: 32px; width: min(480px, 92vw);
+    max-height: 90vh; overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(233,122,184,0.3);
+    animation: popIn 0.3s ease;
+    border: 3px solid var(--pink);
+  }
+  @keyframes popIn {
+    from { transform: scale(0.85); opacity: 0; }
+    to   { transform: scale(1); opacity: 1; }
+  }
+  .modal h3 {
+    font-family: 'ZCOOL XiaoWei', serif;
+    font-size: 1.4rem; color: var(--pink-deep);
+    margin-bottom: 20px; text-align: center;
+  }
+  .modal-type-tabs {
+    display: flex; gap: 8px; margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  .mtype {
+    padding: 6px 16px; border-radius: 99px;
+    border: 2px solid var(--pink);
+    background: none; cursor: pointer;
+    font-family: 'Noto Serif SC', serif;
+    font-size: 0.85rem; color: var(--pink-deep);
+    transition: all 0.2s;
+  }
+  .mtype.active, .mtype:hover {
+    background: var(--pink-deep); color: white;
+    border-color: var(--pink-deep);
+  }
+
+  .form-group { margin-bottom: 16px; }
+  .form-group label {
+    display: block; font-size: 0.85rem;
+    color: #a07090; margin-bottom: 6px;
+  }
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    width: 100%; padding: 10px 14px;
+    border: 2px solid var(--soft);
+    border-radius: 12px;
+    font-family: 'Noto Serif SC', serif;
+    font-size: 0.9rem; color: var(--text);
+    background: var(--cream);
+    outline: none; transition: border-color 0.2s;
+  }
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-color: var(--pink);
+  }
+  .form-group textarea { min-height: 90px; resize: vertical; }
+
+  .btn-row {
+    display: flex; gap: 10px; justify-content: flex-end;
+    margin-top: 20px;
+  }
+  .btn {
+    padding: 10px 24px; border-radius: 99px;
+    border: 2px solid; cursor: pointer;
+    font-family: 'Noto Serif SC', serif;
+    font-size: 0.9rem; transition: all 0.2s;
+  }
+  .btn-ghost {
+    border-color: var(--soft); background: none;
+    color: #a07090;
+  }
+  .btn-ghost:hover { border-color: var(--pink-deep); color: var(--pink-deep); }
+  .btn-primary {
+    border-color: var(--pink-deep);
+    background: var(--pink-deep); color: white;
+  }
+  .btn-primary:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    transform: translateY(-1px);
+  }
+
+  /* ===== LIGHTBOX ===== */
+  .lightbox {
+    display: none; position: fixed; inset: 0;
+    background: rgba(30,10,25,0.88);
+    z-index: 500; align-items: center;
+    justify-content: center; padding: 20px;
+  }
+  .lightbox.open { display: flex; }
+  .lightbox img {
+    max-width: 90vw; max-height: 86vh;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+  .lightbox-close {
+    position: absolute; top: 20px; right: 24px;
+    font-size: 28px; color: white;
+    cursor: pointer; background: none; border: none;
+    opacity: 0.7; transition: opacity 0.2s;
+  }
+  .lightbox-close:hover { opacity: 1; }
+
+  /* ===== EMPTY STATE ===== */
+  .empty {
+    text-align: center; padding: 40px;
+    color: #c0a0b0; font-size: 0.9rem;
+  }
+  .empty .e-icon { font-size: 40px; margin-bottom: 12px; }
+
+  /* ===== SCROLLBAR ===== */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--cream); }
+  ::-webkit-scrollbar-thumb {
+    background: var(--pink); border-radius: 3px;
+  }
+
+  /* ===== SPARKLES ===== */
+  .sparkle {
+    position: fixed; pointer-events: none;
+    font-size: 18px; z-index: 9999;
+    animation: sparkFly 0.8s ease-out forwards;
+  }
+  @keyframes sparkFly {
+    0%   { transform: translateY(0) scale(1); opacity: 1; }
+    100% { transform: translateY(-60px) scale(0); opacity: 0; }
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    text-align: center; padding: 32px 20px;
+    color: #c0a0b0; font-size: 0.82rem;
+    border-top: 2px dashed var(--pink);
+    background: var(--soft);
+    position: relative; z-index: 5;
+  }
+  footer span { color: var(--pink-deep); }
+</style>
+</head>
+<body>
+
+<!-- Background bubbles -->
+<div class="deco-bg" id="decoBg"></div>
+
+<!-- Header -->
+<header>
+  <div class="avatar-wrap">
+    <div class="avatar" id="avatarEmoji">🎨</div>
+    <div class="avatar-ring"></div>
+  </div>
+  <h1 id="siteTitle">我的CP画廊</h1>
+  <p class="tagline" id="siteTagline">✨ 用爱画CP，用画记录爱 ✨</p>
+  <div class="header-tags" id="headerTags">
+    <span class="htag">#Q版</span>
+    <span class="htag">#CP向</span>
+    <span class="htag">#手绘</span>
+    <span class="htag">#画廊</span>
+  </div>
+</header>
+
+<!-- Nav -->
+<nav>
+  <button class="nav-btn active" onclick="scrollTo('gallery')">🖼️ 插画</button>
+  <button class="nav-btn" onclick="scrollTo('posts')">📝 文字</button>
+  <button class="nav-btn" onclick="scrollTo('videos')">🎬 视频</button>
+  <button class="nav-btn" onclick="scrollTo('links')">🔗 链接</button>
+  <button class="nav-btn" onclick="openSettings()">⚙️ 设置</button>
+</nav>
+
+<!-- Main -->
+<main>
+  <!-- Gallery -->
+  <section class="section" id="gallery">
+    <div class="section-title">🖼️ 插画展示</div>
+    <div class="gallery-grid" id="galleryGrid">
+      <!-- Demo cards -->
+      <div class="card" onclick="openLightbox(this)">
+        <div class="card-img">🌸</div>
+        <div class="card-body">
+          <div class="card-title">春日约会</div>
+          <div class="card-desc">他们手牵手走在樱花树下，好甜好甜！</div>
+          <div class="card-tags"><span class="tag">日常</span><span class="tag">甜文配图</span></div>
+        </div>
+      </div>
+      <div class="card" onclick="openLightbox(this)">
+        <div class="card-img">🌙</div>
+        <div class="card-body">
+          <div class="card-title">月下重逢</div>
+          <div class="card-desc">同款月亮下，两个人的剪影。</div>
+          <div class="card-tags"><span class="tag">BE警告</span><span class="tag">氛围感</span></div>
+        </div>
+      </div>
+      <div class="card" onclick="openLightbox(this)">
+        <div class="card-img">☕</div>
+        <div class="card-body">
+          <div class="card-title">咖啡馆的下午</div>
+          <div class="card-desc">Q版风格，两只团子对视微笑的小场景。</div>
+          <div class="card-tags"><span class="tag">Q版</span><span class="tag">日常</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Posts -->
+  <section class="section" id="posts">
+    <div class="section-title">📝 碎碎念</div>
+    <div class="text-posts" id="postList">
+      <div class="post-card">
+        <div class="post-date">2025 · 03 · 07</div>
+        <div class="post-title">关于这个画廊</div>
+        <div class="post-content">这里是我放CP图的小角落，平时会更新插画、写一些配图的碎碎念，偶尔也会发过程视频。如果喜欢的话欢迎来玩！(´▽`ʃ♡ƪ)</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Videos -->
+  <section class="section" id="videos">
+    <div class="section-title">🎬 视频专区</div>
+    <div class="video-grid" id="videoGrid">
+      <div class="video-card">
+        <div class="video-wrap">
+          <div class="video-placeholder">
+            <button class="play-btn">▶</button>
+            <span style="font-size:0.85rem;opacity:0.7">上传或添加视频链接</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-title">绘画过程 · 春日约会</div>
+          <div class="card-desc" style="font-size:0.8rem;color:#a07090">从草稿到上色全过程录屏</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Links -->
+  <section class="section" id="links">
+    <div class="section-title">🔗 我的主页</div>
+    <div class="links-grid" id="linksGrid">
+      <a class="link-card" href="#" target="_blank">
+        <div class="link-icon">🐦</div>
+        <div class="link-name">微博</div>
+        <div class="link-desc">日常更新</div>
+      </a>
+      <a class="link-card" href="#" target="_blank">
+        <div class="link-icon">🎨</div>
+        <div class="link-name">Pixiv</div>
+        <div class="link-desc">高清原图</div>
+      </a>
+      <a class="link-card" href="#" target="_blank">
+        <div class="link-icon">📺</div>
+        <div class="link-name">哔哩哔哩</div>
+        <div class="link-desc">绘画视频</div>
+      </a>
+      <a class="link-card" href="#" target="_blank">
+        <div class="link-icon">✉️</div>
+        <div class="link-name">约稿邮箱</div>
+        <div class="link-desc">欢迎约稿</div>
+      </a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  用 <span>♥</span> 画的每一张图，都是献给我CP的情书。<br>
+  <span>© 2025 我的CP画廊</span> · 转载请注明出处
+</footer>
+
+<!-- FAB -->
+<button class="fab" onclick="openModal()" title="添加新内容">＋</button>
+
+<!-- Add Modal -->
+<div class="modal-overlay" id="addModal">
+  <div class="modal">
+    <h3>✨ 添加新内容</h3>
+    <div class="modal-type-tabs">
+      <button class="mtype active" onclick="switchType('image',this)">🖼️ 插画</button>
+      <button class="mtype" onclick="switchType('post',this)">📝 文字</button>
+      <button class="mtype" onclick="switchType('video',this)">🎬 视频</button>
+      <button class="mtype" onclick="switchType('link',this)">🔗 链接</button>
+    </div>
+
+    <!-- Image form -->
+    <div id="form-image">
+      <div class="form-group">
+        <label>标题</label>
+        <input type="text" id="img-title" placeholder="给这张图起个名字~">
+      </div>
+      <div class="form-group">
+        <label>图片链接（或上传后的URL）</label>
+        <input type="text" id="img-url" placeholder="https://... 或留空用emoji表情">
+      </div>
+      <div class="form-group">
+        <label>封面Emoji（没有图片时显示）</label>
+        <input type="text" id="img-emoji" placeholder="🌸" maxlength="4">
+      </div>
+      <div class="form-group">
+        <label>描述</label>
+        <textarea id="img-desc" placeholder="说说这张图的故事~"></textarea>
+      </div>
+      <div class="form-group">
+        <label>标签（用空格分隔）</label>
+        <input type="text" id="img-tags" placeholder="Q版 日常 甜">
+      </div>
+    </div>
+
+    <!-- Post form -->
+    <div id="form-post" style="display:none">
+      <div class="form-group">
+        <label>标题</label>
+        <input type="text" id="post-title" placeholder="写点什么~">
+      </div>
+      <div class="form-group">
+        <label>正文</label>
+        <textarea id="post-content" placeholder="碎碎念内容~" style="min-height:120px"></textarea>
+      </div>
+    </div>
+
+    <!-- Video form -->
+    <div id="form-video" style="display:none">
+      <div class="form-group">
+        <label>标题</label>
+        <input type="text" id="vid-title" placeholder="视频标题">
+      </div>
+      <div class="form-group">
+        <label>视频嵌入链接（B站/YouTube embed URL）</label>
+        <input type="text" id="vid-url" placeholder="https://player.bilibili.com/...">
+      </div>
+      <div class="form-group">
+        <label>描述</label>
+        <textarea id="vid-desc" placeholder="视频简介~"></textarea>
+      </div>
+    </div>
+
+    <!-- Link form -->
+    <div id="form-link" style="display:none">
+      <div class="form-group">
+        <label>平台名称</label>
+        <input type="text" id="lnk-name" placeholder="微博 / Pixiv / B站...">
+      </div>
+      <div class="form-group">
+        <label>链接地址</label>
+        <input type="text" id="lnk-url" placeholder="https://...">
+      </div>
+      <div class="form-group">
+        <label>图标Emoji</label>
+        <input type="text" id="lnk-icon" placeholder="🎨" maxlength="4">
+      </div>
+      <div class="form-group">
+        <label>简介</label>
+        <input type="text" id="lnk-desc" placeholder="在这里更新XXX">
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-ghost" onclick="closeModal()">取消</button>
+      <button class="btn btn-primary" onclick="addContent()">确定添加 ✓</button>
+    </div>
+  </div>
+</div>
+
+<!-- Settings Modal -->
+<div class="modal-overlay" id="settingsModal">
+  <div class="modal">
+    <h3>⚙️ 网站设置</h3>
+    <div class="form-group">
+      <label>网站标题</label>
+      <input type="text" id="set-title" placeholder="我的CP画廊">
+    </div>
+    <div class="form-group">
+      <label>副标题</label>
+      <input type="text" id="set-tagline" placeholder="✨ 用爱画CP，用画记录爱 ✨">
+    </div>
+    <div class="form-group">
+      <label>头像Emoji</label>
+      <input type="text" id="set-avatar" placeholder="🎨" maxlength="4">
+    </div>
+    <div class="form-group">
+      <label>标签（用空格分隔）</label>
+      <input type="text" id="set-tags" placeholder="#Q版 #CP向 #手绘">
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-ghost" onclick="closeSettings()">取消</button>
+      <button class="btn btn-primary" onclick="saveSettings()">保存 ✓</button>
+    </div>
+  </div>
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <img id="lightboxImg" src="" alt="">
+</div>
+
+<script>
+// ===== BUBBLES =====
+const deco = document.getElementById('decoBg');
+const colors = ['#f9a8c9','#c9b8f0','#b8eae0','#ffe4f0','#e8d5ff'];
+for (let i = 0; i < 14; i++) {
+  const b = document.createElement('div');
+  b.className = 'bubble';
+  const size = 30 + Math.random() * 80;
+  b.style.cssText = `
+    width:${size}px; height:${size}px;
+    background:${colors[Math.floor(Math.random()*colors.length)]};
+    left:${Math.random()*100}%;
+    animation-duration:${8+Math.random()*12}s;
+    animation-delay:${-Math.random()*12}s;
+  `;
+  deco.appendChild(b);
+}
+
+// ===== SPARKLES =====
+document.addEventListener('click', e => {
+  const emojis = ['✨','💕','🌸','⭐','💫','🎀','♥'];
+  const s = document.createElement('div');
+  s.className = 'sparkle';
+  s.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+  s.style.left = e.clientX - 12 + 'px';
+  s.style.top  = e.clientY - 12 + 'px';
+  document.body.appendChild(s);
+  setTimeout(() => s.remove(), 800);
+});
+
+// ===== SCROLL TO =====
+function scrollTo(id) {
+  document.getElementById(id).scrollIntoView({behavior:'smooth', block:'start'});
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+}
+
+// ===== MODAL =====
+let currentType = 'image';
+function openModal() {
+  document.getElementById('addModal').classList.add('open');
+}
+function closeModal() {
+  document.getElementById('addModal').classList.remove('open');
+}
+function switchType(t, el) {
+  currentType = t;
+  document.querySelectorAll('.mtype').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  ['image','post','video','link'].forEach(x =>
+    document.getElementById('form-'+x).style.display = x===t?'block':'none'
+  );
+}
+
+// ===== ADD CONTENT =====
+function addContent() {
+  if (currentType === 'image') {
+    const title = document.getElementById('img-title').value || '无题';
+    const url   = document.getElementById('img-url').value;
+    const emoji = document.getElementById('img-emoji').value || '🎨';
+    const desc  = document.getElementById('img-desc').value;
+    const tags  = document.getElementById('img-tags').value;
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.onclick = function(){ openLightbox(this); };
+    card.innerHTML = `
+      <div class="card-img" data-url="${url}">
+        ${url ? `<img src="${url}" alt="${title}" onerror="this.style.display='none'">` : emoji}
+      </div>
+      <div class="card-body">
+        <div class="card-title">${title}</div>
+        <div class="card-desc">${desc}</div>
+        <div class="card-tags">${tags.split(' ').filter(Boolean).map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+      </div>`;
+    document.getElementById('galleryGrid').prepend(card);
+  }
+
+  else if (currentType === 'post') {
+    const title   = document.getElementById('post-title').value || '随笔';
+    const content = document.getElementById('post-content').value;
+    const now = new Date();
+    const date = `${now.getFullYear()} · ${String(now.getMonth()+1).padStart(2,'0')} · ${String(now.getDate()).padStart(2,'0')}`;
+    const pc = document.createElement('div');
+    pc.className = 'post-card';
+    pc.innerHTML = `<div class="post-date">${date}</div>
+      <div class="post-title">${title}</div>
+      <div class="post-content">${content}</div>`;
+    document.getElementById('postList').prepend(pc);
+  }
+
+  else if (currentType === 'video') {
+    const title = document.getElementById('vid-title').value || '绘画视频';
+    const url   = document.getElementById('vid-url').value;
+    const desc  = document.getElementById('vid-desc').value;
+    const vc = document.createElement('div');
+    vc.className = 'video-card';
+    vc.innerHTML = `
+      <div class="video-wrap">
+        ${url
+          ? `<iframe src="${url}" allowfullscreen allow="autoplay"></iframe>`
+          : `<div class="video-placeholder"><button class="play-btn">▶</button><span style="font-size:0.85rem;opacity:0.7">暂无视频</span></div>`}
+      </div>
+      <div class="card-body">
+        <div class="card-title">${title}</div>
+        <div class="card-desc" style="font-size:0.8rem;color:#a07090">${desc}</div>
+      </div>`;
+    document.getElementById('videoGrid').prepend(vc);
+  }
+
+  else if (currentType === 'link') {
+    const name = document.getElementById('lnk-name').value || '链接';
+    const url  = document.getElementById('lnk-url').value || '#';
+    const icon = document.getElementById('lnk-icon').value || '🔗';
+    const desc = document.getElementById('lnk-desc').value;
+    const lc = document.createElement('a');
+    lc.className = 'link-card';
+    lc.href = url; lc.target = '_blank';
+    lc.innerHTML = `<div class="link-icon">${icon}</div>
+      <div class="link-name">${name}</div>
+      <div class="link-desc">${desc}</div>`;
+    document.getElementById('linksGrid').appendChild(lc);
+  }
+
+  closeModal();
+  // clear fields
+  document.querySelectorAll('.modal input, .modal textarea').forEach(el => el.value = '');
+}
+
+// ===== SETTINGS =====
+function openSettings() {
+  document.getElementById('set-title').value   = document.getElementById('siteTitle').textContent;
+  document.getElementById('set-tagline').value = document.getElementById('siteTagline').textContent;
+  document.getElementById('set-avatar').value  = document.getElementById('avatarEmoji').textContent.trim();
+  document.getElementById('settingsModal').classList.add('open');
+}
+function closeSettings() {
+  document.getElementById('settingsModal').classList.remove('open');
+}
+function saveSettings() {
+  const t  = document.getElementById('set-title').value;
+  const tl = document.getElementById('set-tagline').value;
+  const av = document.getElementById('set-avatar').value;
+  const tgs= document.getElementById('set-tags').value;
+  if (t)  document.getElementById('siteTitle').textContent = t;
+  if (tl) document.getElementById('siteTagline').textContent = tl;
+  if (av) document.getElementById('avatarEmoji').textContent = av;
+  if (tgs) {
+    const tagEl = document.getElementById('headerTags');
+    tagEl.innerHTML = tgs.split(' ').filter(Boolean).map(t=>`<span class="htag">${t.startsWith('#')?t:'#'+t}</span>`).join('');
+  }
+  closeSettings();
+}
+
+// ===== LIGHTBOX =====
+function openLightbox(card) {
+  const img = card.querySelector('img');
+  const emoji = card.querySelector('.card-img');
+  if (img && img.src) {
+    document.getElementById('lightboxImg').src = img.src;
+    document.getElementById('lightbox').classList.add('open');
+  }
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+}
+
+// ===== CLOSE ON OVERLAY CLICK =====
+document.getElementById('addModal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+document.getElementById('settingsModal').addEventListener('click', function(e) {
+  if (e.target === this) closeSettings();
+});
+</script>
+</body>
+</html>
